@@ -21,6 +21,8 @@ void	ft_read_map(char **argv, t_map *game)
 	fd1 = open(argv[1], O_RDONLY);
 	if (fd == -1 || fd1 == -1)
 		exit_error(NULL, "ERROR\nFile could'nt be opened", 1);
+	game->enemies = NULL;
+	game->enemy_count = 0;
 	game->map = ft_file_to_dptr_m(fd);
 	game->map_cpy = ft_file_to_dptr_m(fd1);
 }
@@ -33,6 +35,7 @@ void	map_check(t_map *game)
 		exit_error(game, "ERROR\nWrong Players, exits or collectibles\n", 0);
 	ft_rectangle_check(game);
 	player_position(game);
+	parse_enemies(game);
 	flood_map(game, game->player.x, game->player.y);
 	ft_check_exit(game);
 }

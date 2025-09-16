@@ -94,6 +94,7 @@ int	main(int argc, char **argv)
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
 	ft_print_map(&game);
+	draw_enemies(&game);
 	// mlx_hook(game.win_ptr, 2, 0, ft_move, &game);
 	mlx_hook(game.win_ptr, 2, 1L << 0, ft_move, &game);
 	// mlx_hook(game.win_ptr, 17, 0, ft_close, &game);

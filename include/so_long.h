@@ -34,30 +34,42 @@ typedef struct s_pos
 	size_t	y;
 }				t_pos;
 
+typedef struct s_enemy
+{
+	size_t	x;
+	size_t	y;
+	char		direction;
+	int			frame;
+	int			step_count;
+}				t_enemy;
+
 typedef struct s_map
 {
-	char	*raw_map;
-	char	**map;
-	char	**map_cpy;
-	char	**map_cpy2;
-	char	**path;
+	char		*raw_map;
+	char		**map;
+	char		**map_cpy;
+	char		**map_cpy2;
+	char		**path;
 	size_t	height;
 	size_t	width;
 	size_t	coins;
 	size_t	coins_cpy;
-	t_pos	player;
-	int		count;
-	int		flag;
-	t_pos	start;
-	int		exit;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	*imgs;
+	t_pos		player;
+	int			count;
+	int			flag;
+	t_pos		start;
+	int			exit;
+	void		*mlx_ptr;
+	void		*win_ptr;  
+	t_img		*imgs;
 	size_t	x;
 	size_t	y;
-	char	direction;
+	char		direction;
+	t_enemy	*enemies;
+	int			enemy_count;
+	void		*enemy_img[4][5];
+}					t_map;
 
-}				t_map;
 
 void	exit_error(t_map *game, char *str, int mod);//main.c
 void	player_position(t_map *game);//main.c
@@ -87,5 +99,9 @@ int		ft_exit_position(int count1, int count2, t_map *game);// positione
 int		ft_collect_position(int count1, int count2, t_map *game);//position
 int		ft_fake_position(int count1, int count2, t_map *game);//upload_img
 int		ft_close(t_map *game);//exit
+void	ft_enemy_touched(t_map *game);//movements.c
+void	put_movements(t_map *game);//movements.c
+void	parse_enemies(t_map *game);//parse_it.c
+void	draw_enemies(t_map *game);//upload_img.c
 
 #endif

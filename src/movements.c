@@ -12,6 +12,29 @@
 
 #include "so_long.h"
 
+void	ft_enemy_touched(t_map *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->enemy_count)
+	{
+		if (game->player.x == game->enemies[i].x
+			&& game->player.y == game->enemies[i].y)
+		{
+			ft_printf("GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY! 💀\n");
+			mlx_string_put(game->mlx_ptr, game->win_ptr,
+				((game->width * SIZE) / 2) - 170, (game->height * SIZE) / 2,
+				0xFF0000, "GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY! 💀");
+			mlx_do_sync(game->mlx_ptr);
+			sleep(4);
+			ft_close(game);
+			exit(1);
+		}
+		i++;
+	}
+}
+
 void	put_movements(t_map *game)
 {
 	char	buffer[32];
@@ -33,7 +56,8 @@ int	ft_move_w(t_map *game)
 		exit(1);
 	}
 	if ((game->map[game->player.x - 1][game->player.y] != '1')
-			&& game->map[game->player.x - 1][game->player.y] != 'E')
+	&& game->map[game->player.x - 1][game->player.y] != 'E')
+
 	{
 		if (game->map[game->player.x - 1][game->player.y] == 'C')
 			game->coins--;
@@ -42,8 +66,9 @@ int	ft_move_w(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
 		ft_print_map (game);
+		draw_enemies(game);
 		put_movements(game);
-		// ft_printf("Movements: %d\n", game->count);
+		ft_enemy_touched(game);
 	}
 	return (0);
 }
@@ -69,7 +94,10 @@ int	ft_move_s(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
 		ft_print_map (game);
+		draw_enemies(game);
 		put_movements(game);
+	ft_enemy_touched(game);
+
 	}
 	return (0);
 }
@@ -96,14 +124,15 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
 		ft_print_map (game);
+		draw_enemies(game);
 		put_movements(game);
+		ft_enemy_touched(game);
 	}
 	return (0);
 }
 
 int	ft_move_d(t_map *game)
 {
-
 	game->direction = 'D';
 	if ((game->map[game->player.x][game->player.y +1] == 'E'
 		&& game->coins == 0))
@@ -123,7 +152,9 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
 		ft_print_map (game);
+		draw_enemies(game);
 		put_movements(game);
+		ft_enemy_touched(game);
 	}
 	return (0);
 }

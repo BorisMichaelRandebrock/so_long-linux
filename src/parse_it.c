@@ -60,11 +60,13 @@ int	exit_player_check(t_map *game)
 	unsigned long	x;
 	int				player;
 	int				exit;
+ 	// int				enemies;
 
 	x = 0;
 	y = 0;
 	player = 0;
 	exit = 0;
+	// enemies = 0;
 	while ((y < game->height) && (x < game->width))
 	{
 		if (game->map[y][x] == 'E')
@@ -72,6 +74,8 @@ int	exit_player_check(t_map *game)
 		if (game->map[y][x] == 'P')
 			player++;
 		y++;
+		/* if (game->map[y][x] == 'B')
+			enemies++; */
 		if (y == game->height)
 		{
 			x++;
@@ -131,5 +135,48 @@ void	ft_rectangle_check(t_map *game)
 			y++;
 		else
 			exit_error(game, "Error\nThe map is not a square\n", 0);
+	}
+}
+
+void	parse_enemies(t_map *game)
+{
+	int	count;
+	int	i, j;
+	int	idx;
+
+	count = 0;
+	for (i = 0; i < (int)game->height; i++)
+	{
+		for (j = 0; j < (int)game->width; j++)
+		{
+			if (game->map[i][j] == 'B')
+				count++;
+		}
+	}
+
+
+	if (count > 0)
+	{
+		game->enemies = malloc(sizeof(t_enemy) * count);
+		if (!game->enemies)
+			exit_error(game, "Error\nFailed to allocate enemies\n", 0);
+		game->enemy_count = count;
+
+		idx = 0;
+		for (i = 0; i < (int)game->height; i++)
+		{
+			for (j = 0; j < (int)game->width; j++)
+			{
+				if (game->map[i][j] == 'B')
+				{
+					game->enemies[idx].x = i;
+					game->enemies[idx].y = j;
+					game->enemies[idx].frame = 0;
+					game->enemies[idx].step_count = 0;
+					idx++;
+					game->map[i][j] = '0';
+				}
+			}
+		}
 	}
 }
