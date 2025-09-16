@@ -98,7 +98,3 @@ int	ft_cant(char c)
 		return (-1);
 	return (1);
 }
-/*	size_t	y;
-	size_t	x;
-	moved to struct in so_long.h
-	*/	

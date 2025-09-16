@@ -12,11 +12,18 @@
 
 #include "so_long.h"
 
+void	put_movements(t_map *game)
+{
+	char	buffer[32];
+
+	snprintf(buffer, sizeof(buffer), "Movements: %d", game->count);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 15, 15, 0xFFFFFF, buffer);
+	ft_printf("Movements: %d\n", game->count);
+}
+
 int	ft_move_w(t_map *game)
 {
-//	long int	count;
 
-//	count = 0;
 	game->direction = 'W';
 	if (game->map[game->player.x -1][game->player.y] == 'E' && game->coins == 0)
 	{
@@ -34,17 +41,16 @@ int	ft_move_w(t_map *game)
 		game->player.x = game->player.x - 1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
-		ft_printf("Movements: %d\n", game->count);
 		ft_print_map (game);
+		put_movements(game);
+		// ft_printf("Movements: %d\n", game->count);
 	}
 	return (0);
 }
 
 int	ft_move_s(t_map *game)
 {
-//	long int	count;
 
-//	count = 0;
 	game->direction = 'S';
 	if ((game->coins == 0)
 		&& game->map[game->player.x +1][game->player.y] == 'E')
@@ -62,17 +68,15 @@ int	ft_move_s(t_map *game)
 		game->player.x = game->player.x +1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
-		ft_printf("Movements: %d\n", game->count);
 		ft_print_map (game);
+		put_movements(game);
 	}
 	return (0);
 }
 
 int	ft_move_a(t_map *game)
 {
-//	long int	count;
 
-//	count = 0;
 	game->direction = 'A';
 	if ((game->map[game->player.x][game->player.y -1] == 'E'
 		&& game->coins == 0))
@@ -91,17 +95,15 @@ int	ft_move_a(t_map *game)
 		game->player.y = game->player.y -1 ;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
-		ft_printf("Movements: %d\n", game->count);
 		ft_print_map (game);
+		put_movements(game);
 	}
 	return (0);
 }
 
 int	ft_move_d(t_map *game)
 {
-//	long int	count;
 
-//	count = 0;
 	game->direction = 'D';
 	if ((game->map[game->player.x][game->player.y +1] == 'E'
 		&& game->coins == 0))
@@ -120,13 +122,28 @@ int	ft_move_d(t_map *game)
 		game->player.y = game->player.y +1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
-		ft_printf("Movements: %d\n", game->count);
 		ft_print_map (game);
+		put_movements(game);
 	}
 	return (0);
 }
 
 int	ft_move(int keycode, t_map *game)
+{
+	if (keycode == 119 || keycode == 65362)
+		ft_move_w(game);
+	if (keycode == 97 || keycode == 65361)
+		ft_move_a(game);
+	if (keycode == 115 || keycode == 65364)
+		ft_move_s(game);
+	if (keycode == 100 || keycode == 65363)
+		ft_move_d(game);
+	if (keycode == 65307)
+		exit(1);
+	return (0);
+}
+
+/* int	ft_move(int keycode, t_map *game)
 {
 	if (keycode == 13 || keycode == 126)
 		ft_move_w(game);
@@ -139,4 +156,4 @@ int	ft_move(int keycode, t_map *game)
 	if (keycode == 53)
 		exit(1);
 	return (0);
-}
+} */

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <X11/X.h>
+#include <X11/keysym.h>
 #include "so_long.h"
 
 void	exit_error(t_map *game, char *str, int mod)
@@ -43,12 +45,17 @@ void	player_position(t_map *game)
 void	ft_win(t_map *game)
 {
 	int	c;
+	int		window_w;
+	int		window_h;
+	char	*msg = "CONGRATULATIONS YOU WIN!!!\n";
 
 	c = 0;
 	game->count = game->count +1;
 	ft_printf("Total number of movements: %d\n", game->count);
-	mlx_string_put(game->mlx_ptr, game->win_ptr, 15,
-		30, 0xFFFFFF, "CONGRATULATIONS YOU WIN!!!\n");
+	window_w = game->width * SIZE;
+	window_h = game->height * SIZE;
+	mlx_string_put(game->mlx_ptr, game->win_ptr,
+		((window_w) / 2) - 70, window_h / 2, 0x00FF00, msg);
 	mlx_do_sync(game->mlx_ptr);
 	while (c < 1000000000)
 		c++;
@@ -87,8 +94,10 @@ int	main(int argc, char **argv)
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
 	ft_print_map(&game);
-	mlx_hook(game.win_ptr, 2, 0, ft_move, &game);
-	mlx_hook(game.win_ptr, 17, 0, ft_close, &game);
+	// mlx_hook(game.win_ptr, 2, 0, ft_move, &game);
+	mlx_hook(game.win_ptr, 2, 1L << 0, ft_move, &game);
+	// mlx_hook(game.win_ptr, 17, 0, ft_close, &game);
+	mlx_hook(game.win_ptr, 17, 1L << 17, ft_close, &game);
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }

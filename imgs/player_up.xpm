@@ -2,7 +2,7 @@
 static char *Screen_Shot_2024_01_10_at_1_39_19_PM1704891039[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 190 2 ",
-"   c None",
+"   c #6EB35E",
 ".  c #262C1D",
 "X  c #342D1B",
 "o  c #2C3E1C",
