@@ -12,7 +12,10 @@
 
 #include <X11/X.h>
 #include <X11/keysym.h>
+#include <time.h>
+#include <stdlib.h>
 #include "so_long.h"
+
 
 void	exit_error(t_map *game, char *str, int mod)
 {
@@ -81,8 +84,10 @@ void	tokemo(char **arr, int line)
 int	main(int argc, char **argv)
 {
 	t_map	game;
+	rand();
 
 	game.count = 0;
+	game.enemy_frame = 0;
 	parse_it(argc, argv);
 	ft_read_map(argv, &game);
 	ft_measures(&game);
@@ -94,7 +99,9 @@ int	main(int argc, char **argv)
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
 	ft_print_map(&game);
-	draw_enemies(&game);
+	// draw_enemies(&game);
+
+	mlx_loop_hook(game.mlx_ptr, enemy_update, &game);
 	// mlx_hook(game.win_ptr, 2, 0, ft_move, &game);
 	mlx_hook(game.win_ptr, 2, 1L << 0, ft_move, &game);
 	// mlx_hook(game.win_ptr, 17, 0, ft_close, &game);

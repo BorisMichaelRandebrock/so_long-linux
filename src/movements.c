@@ -41,7 +41,7 @@ void	put_movements(t_map *game)
 
 	snprintf(buffer, sizeof(buffer), "Movements: %d", game->count);
 	mlx_string_put(game->mlx_ptr, game->win_ptr, 15, 15, 0xFFFFFF, buffer);
-	ft_printf("Movements: %d\n", game->count);
+	//ft_printf("Movements: %d\n", game->count);
 }
 
 int	ft_move_w(t_map *game)
@@ -66,9 +66,8 @@ int	ft_move_w(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
@@ -94,9 +93,8 @@ int	ft_move_s(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
@@ -124,9 +122,8 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
@@ -153,31 +150,27 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
 }
 
-void	animate_enemies(t_map *game)
+int	enemy_update(void *param)
 {
-	int	i;
+	t_map	*game = (t_map *)param;
 
-	i = 0;
-	while (i < game->enemy_count)
-	{
-		game->enemies[i].step_count++;
-		if (game->enemies[i].step_count >= 3) // Change frame every 3 moves
-		{
-			game->enemies[i].frame = (game->enemies[i].frame + 1) % 5; // Cycle 0→1→2→3→4→0
-			game->enemies[i].step_count = 0;
-		}
-		i++;
-	}
+	game->enemy_frame++;// = (game->enemy_frame + 1) % 5; // Cycle through frames
+	if (game->enemy_frame % 99 == 0)
+		move_enemies(game);      // Update enemy positions
+	 // Change frame every 10 calls
+	ft_print_map(game);      // Redraw entire map
+	draw_enemies(game);      // Draw enemies on top
+	animate_enemies(game);
+	put_movements(game);
+	return (0);
 }
-
 
 int	ft_move(int keycode, t_map *game)
 {
@@ -193,18 +186,3 @@ int	ft_move(int keycode, t_map *game)
 		exit(1);
 	return (0);
 }
-
-/* int	ft_move(int keycode, t_map *game)
-{
-	if (keycode == 13 || keycode == 126)
-		ft_move_w(game);
-	if (keycode == 0 || keycode == 123)
-		ft_move_a(game);
-	if (keycode == 1 || keycode == 125)
-		ft_move_s(game);
-	if (keycode == 2 || keycode == 124)
-		ft_move_d(game);
-	if (keycode == 53)
-		exit(1);
-	return (0);
-} */

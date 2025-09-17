@@ -68,6 +68,7 @@ typedef struct s_map
 	t_enemy	*enemies;
 	int			enemy_count;
 	void		*enemy_img[4][5];
+	int			enemy_frame;
 }					t_map;
 
 
@@ -104,5 +105,6 @@ void	put_movements(t_map *game);//movements.c
 void	parse_enemies(t_map *game);//parse_it.c
 void	draw_enemies(t_map *game);//upload_img.c
 void	animate_enemies(t_map *game);//bonus.c
-
+int		enemy_update(void *param);//bonus.c
+void	move_enemies(t_map *game);//bonus.c
 #endif
