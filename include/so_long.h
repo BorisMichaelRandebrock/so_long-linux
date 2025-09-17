@@ -32,7 +32,7 @@ typedef struct s_pos
 {
 	size_t	x;
 	size_t	y;
-}				t_pos;
+}					t_pos;
 
 typedef struct s_enemy
 {
@@ -41,7 +41,19 @@ typedef struct s_enemy
 	char		direction;
 	int			frame;
 	int			step_count;
-}				t_enemy;
+	int			chaos;
+}					t_enemy;
+
+typedef struct s_rect
+{
+
+	int		x;
+	int		y;
+	int		w;
+	int		h;
+
+}				t_rect;
+
 
 typedef struct s_map
 {
@@ -101,10 +113,11 @@ int		ft_collect_position(int count1, int count2, t_map *game);//position
 int		ft_fake_position(int count1, int count2, t_map *game);//upload_img
 int		ft_close(t_map *game);//exit
 void	ft_enemy_touched(t_map *game);//movements.c
-void	put_movements(t_map *game);//movements.c
+void	put_movements(t_map *game);//bonus_bis.c
 void	parse_enemies(t_map *game);//parse_it.c
 void	draw_enemies(t_map *game);//upload_img.c
 void	animate_enemies(t_map *game);//bonus.c
 int		enemy_update(void *param);//bonus.c
 void	move_enemies(t_map *game);//bonus.c
+void	ft_upload_enemies(t_map *game, int height, int width);
 #endif

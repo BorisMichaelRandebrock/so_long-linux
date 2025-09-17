@@ -14,10 +14,10 @@
 
 int	ft_player_position(int count1, int count2, t_map *game)
 {
-	game->player.x = count1;
-	game->player.y = count2;
 	int	img_indx;
 
+	game->player.x = count1;
+	game->player.y = count2;
 	if (game->direction == 'A')
 		img_indx = 5;
 	else if (game->direction == 'W')

@@ -133,8 +133,7 @@ void	ft_rectangle_check(t_map *game)
 			exit_error(game, "Error\nThe map is not a square\n", 0);
 	}
 }
-
-/* void	parse_enemies(t_map *game)
+void	parse_enemies(t_map *game)
 {
 	int	count = 0, i;
 
@@ -174,4 +173,3 @@ void	ft_rectangle_check(t_map *game)
 	}
 	// if (count == 0) { game->enemies = NULL; game->enemy_count = 0; }
 }
- */

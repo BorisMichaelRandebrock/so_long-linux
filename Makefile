@@ -17,7 +17,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 SRC = main.c parse_it.c ft_read_map.c flood_map.c movements.c\
-	  upload_img.c exit.c position.c bonus.c
+	  upload_img.c exit.c position.c bonus.c bonus_bis.c\
 
 # LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -framework OpenGL \
 	   -framework AppKit
@@ -28,7 +28,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -g -I. -I./libft -I./ft_printf
+FLAGS = -Wall -Wextra -Werror -g -I. -I./libft -I./ft_printf -fsanitize=address -fno-omit-frame-pointer
 
 LIBFT = ./Libft/libft.a
 LIBFT_DIR = ./Libft
@@ -49,6 +49,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 
 $(NAME): $(LIBFT) $(FT_PRINTF) $(MLX) $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBS) -o $(NAME)
+
+valgrind:
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/some.ber
 
 libs:
 	@make -C $(LIBFT_DIR) bonus

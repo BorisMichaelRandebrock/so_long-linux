@@ -12,41 +12,8 @@
 
 #include "so_long.h"
 
-void	ft_enemy_touched(t_map *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->enemy_count)
-	{
-		if (game->player.x == game->enemies[i].x
-			&& game->player.y == game->enemies[i].y)
-		{
-			ft_printf("GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY! 💀\n");
-			mlx_string_put(game->mlx_ptr, game->win_ptr,
-				((game->width * SIZE) / 2) - 170, (game->height * SIZE) / 2,
-				0xFF0000, "GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY! 💀");
-			mlx_do_sync(game->mlx_ptr);
-			sleep(4);
-			ft_close(game);
-			exit(1);
-		}
-		i++;
-	}
-}
-
-void	put_movements(t_map *game)
-{
-	char	buffer[32];
-
-	snprintf(buffer, sizeof(buffer), "Movements: %d", game->count);
-	mlx_string_put(game->mlx_ptr, game->win_ptr, 15, 15, 0xFFFFFF, buffer);
-	//ft_printf("Movements: %d\n", game->count);
-}
-
 int	ft_move_w(t_map *game)
 {
-
 	game->direction = 'W';
 	if (game->map[game->player.x -1][game->player.y] == 'E' && game->coins == 0)
 	{
@@ -56,8 +23,7 @@ int	ft_move_w(t_map *game)
 		exit(1);
 	}
 	if ((game->map[game->player.x - 1][game->player.y] != '1')
-	&& game->map[game->player.x - 1][game->player.y] != 'E')
-
+		&& game->map[game->player.x - 1][game->player.y] != 'E')
 	{
 		if (game->map[game->player.x - 1][game->player.y] == 'C')
 			game->coins--;
@@ -102,7 +68,6 @@ int	ft_move_s(t_map *game)
 
 int	ft_move_a(t_map *game)
 {
-
 	game->direction = 'A';
 	if ((game->map[game->player.x][game->player.y -1] == 'E'
 		&& game->coins == 0))
@@ -110,7 +75,6 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("🥇 YOU WON!!!\n");
 		ft_win(game);
-		exit(1);
 	}
 	if ((game->map[game->player.x][game->player.y -1] != '1')
 						&& game->map[game->player.x][game->player.y -1] != 'E')
@@ -138,7 +102,6 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("YOU WON!!! 🧸\n");
 		ft_win(game);
-		exit(1);
 	}
 	if ((game->map[game->player.x][game->player.y +1] != '1')
 				&& game->map[game->player.x][game->player.y +1] != 'E')
@@ -154,21 +117,6 @@ int	ft_move_d(t_map *game)
 		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
-	return (0);
-}
-
-int	enemy_update(void *param)
-{
-	t_map	*game = (t_map *)param;
-
-	game->enemy_frame++;// = (game->enemy_frame + 1) % 5; // Cycle through frames
-	if (game->enemy_frame % 99 == 0)
-		move_enemies(game);      // Update enemy positions
-	 // Change frame every 10 calls
-	ft_print_map(game);      // Redraw entire map
-	draw_enemies(game);      // Draw enemies on top
-	animate_enemies(game);
-	put_movements(game);
 	return (0);
 }
 
