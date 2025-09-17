@@ -66,6 +66,7 @@ int	ft_move_w(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
 		ft_print_map (game);
+		animate_enemies(game);
 		draw_enemies(game);
 		put_movements(game);
 		ft_enemy_touched(game);
@@ -75,7 +76,6 @@ int	ft_move_w(t_map *game)
 
 int	ft_move_s(t_map *game)
 {
-
 	game->direction = 'S';
 	if ((game->coins == 0)
 		&& game->map[game->player.x +1][game->player.y] == 'E')
@@ -94,10 +94,10 @@ int	ft_move_s(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
 		ft_print_map (game);
+		animate_enemies(game);
 		draw_enemies(game);
 		put_movements(game);
-	ft_enemy_touched(game);
-
+		ft_enemy_touched(game);
 	}
 	return (0);
 }
@@ -124,6 +124,7 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count + 1;
 		ft_print_map (game);
+		animate_enemies(game);
 		draw_enemies(game);
 		put_movements(game);
 		ft_enemy_touched(game);
@@ -152,12 +153,31 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count = game->count +1;
 		ft_print_map (game);
+		animate_enemies(game);
 		draw_enemies(game);
 		put_movements(game);
 		ft_enemy_touched(game);
 	}
 	return (0);
 }
+
+void	animate_enemies(t_map *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->enemy_count)
+	{
+		game->enemies[i].step_count++;
+		if (game->enemies[i].step_count >= 3) // Change frame every 3 moves
+		{
+			game->enemies[i].frame = (game->enemies[i].frame + 1) % 5; // Cycle 0→1→2→3→4→0
+			game->enemies[i].step_count = 0;
+		}
+		i++;
+	}
+}
+
 
 int	ft_move(int keycode, t_map *game)
 {

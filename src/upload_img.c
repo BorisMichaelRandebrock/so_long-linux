@@ -29,7 +29,7 @@ void ft_upload_enemies(t_map *game, int height, int width)
 		"imgs/Enemy/Anim/Bat_4.xpm"
 	};
 
-	for (int frame = 0; frame < 5; frame++)  // 5 frames
+	for (int frame = 0; frame < 5; frame++)
 	{
 		game->enemy_img[0][frame] = mlx_xpm_file_to_image(game->mlx_ptr, frame_paths[frame], &width, &height);
 		if (!game->enemy_img[0][frame])

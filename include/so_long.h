@@ -103,5 +103,6 @@ void	ft_enemy_touched(t_map *game);//movements.c
 void	put_movements(t_map *game);//movements.c
 void	parse_enemies(t_map *game);//parse_it.c
 void	draw_enemies(t_map *game);//upload_img.c
+void	animate_enemies(t_map *game);//bonus.c
 
 #endif
