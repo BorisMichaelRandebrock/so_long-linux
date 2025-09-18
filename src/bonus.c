@@ -34,46 +34,16 @@ void	move_enemies(t_map *game)
 	int	i;
 	int	next_x;
 	int	next_y;
-	int	r;
 
 	i = -1;
 	while (++i < (int)game->enemy_count)
 	{
 		if (rand() % 10 == 0)
-		{
-			r = rand() % 4;
-			if (r == 0)
-				game->enemies[i].direction = 'R';
-			else if (r == 1)
-				game->enemies[i].direction = 'L';
-			else if (r == 2)
-				game->enemies[i].direction = 'D';
-			else
-				game->enemies[i].direction = 'U';
-		}
-		next_x = game->enemies[i].x;
-		next_y = game->enemies[i].y;
-		if (game->enemies[i].direction == 'R')
-			next_y++;
-		else if (game->enemies[i].direction == 'L')
-			next_y--;
-		else if (game->enemies[i].direction == 'D')
-			next_x++;
-		else if (game->enemies[i].direction == 'U')
-			next_x--;
+			set_random_direction(&game->enemies[i]);
+		calculate_next_position(&game->enemies[i], &next_x, &next_y);
 		if (next_x < 0 || next_x >= (int)game->height || next_y < 0
 			|| next_y >= (int)game->width || game->map[next_x][next_y] == '1')
-		{
-			r = rand() % 4;
-			if (r == 0)
-				game->enemies[i].direction = 'R';
-			else if (r == 1)
-				game->enemies[i].direction = 'L';
-			else if (r == 2)
-				game->enemies[i].direction = 'D';
-			else
-				game->enemies[i].direction = 'U';
-		}
+			set_random_direction(&game->enemies[i]);
 		else
 		{
 			game->enemies[i].x = next_x;

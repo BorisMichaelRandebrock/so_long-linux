@@ -41,3 +41,32 @@ void	ft_upload_enemies(t_map *game, int height, int width)
 		frame++;
 	}
 }
+
+void	set_random_direction(t_enemy *enemy)
+{
+	int	r;
+
+	r = rand() % 4;
+	if (r == 0)
+		enemy->direction = 'R';
+	else if (r == 1)
+		enemy->direction = 'L';
+	else if (r == 2)
+		enemy->direction = 'D';
+	else
+		enemy->direction = 'U';
+}
+
+void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y)
+{
+	*next_x = enemy->x;
+	*next_y = enemy->y;
+	if (enemy->direction == 'R')
+		(*next_y)++;
+	else if (enemy->direction == 'L')
+		(*next_y)--;
+	else if (enemy->direction == 'D')
+		(*next_x)++;
+	else if (enemy->direction == 'U')
+		(*next_x)--;
+}
