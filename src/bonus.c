@@ -28,7 +28,7 @@ void	animate_enemies(t_map *game)
 		i++;
 	}
 }
-
+/*
 void	move_enemies(t_map *game)
 {
 	int	i;
@@ -66,6 +66,66 @@ void	move_enemies(t_map *game)
 		}
 		else
 		{
+			game->enemies[i].x = next_x;
+			game->enemies[i].y = next_y;
+		}
+	}
+}
+
+ */
+
+void	move_enemies(t_map *game)
+{
+	int	i;
+	int	next_x;
+	int	next_y;
+	int	r;
+
+	i = -1;
+	while (++i < (int)game->enemy_count)
+	{
+		// Small chance (e.g., 5%) to randomly change direction at any time
+		if (rand() % 10 == 0) // 1 in 20 chance → 5% per frame
+		{
+			r = rand() % 4;
+			if (r == 0)
+				game->enemies[i].direction = 'R';
+			else if (r == 1)
+				game->enemies[i].direction = 'L';
+			else if (r == 2)
+				game->enemies[i].direction = 'D';
+			else
+				game->enemies[i].direction = 'U';
+		}
+		// Calculate next position
+		next_x = game->enemies[i].x;
+		next_y = game->enemies[i].y;
+		if (game->enemies[i].direction == 'R')
+			next_y++;
+		else if (game->enemies[i].direction == 'L')
+			next_y--;
+		else if (game->enemies[i].direction == 'D')
+			next_x++;
+		else if (game->enemies[i].direction == 'U')
+			next_x--;
+		// Check boundaries and walls
+		if (next_x < 0 || next_x >= (int)game->height || next_y < 0
+			|| next_y >= (int)game->width || game->map[next_x][next_y] == '1')
+		{
+			// HIT WALL → pick random new direction
+			r = rand() % 4;
+			if (r == 0)
+				game->enemies[i].direction = 'R';
+			else if (r == 1)
+				game->enemies[i].direction = 'L';
+			else if (r == 2)
+				game->enemies[i].direction = 'D';
+			else
+				game->enemies[i].direction = 'U';
+		}
+		else
+		{
+			// FLY FREELY — update position
 			game->enemies[i].x = next_x;
 			game->enemies[i].y = next_y;
 		}

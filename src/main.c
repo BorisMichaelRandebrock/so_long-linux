@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "so_long.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
-#include "so_long.h"
 
 void	exit_error(t_map *game, char *str, int mod)
 {
@@ -58,11 +58,11 @@ void	ft_win(t_map *game)
 	ft_printf("Total number of movements: %d\n", game->count);
 	window_w = game->width * SIZE;
 	window_h = game->height * SIZE;
-	mlx_string_put(game->mlx_ptr, game->win_ptr,
-		((window_w) / 2) - 70, window_h / 2, 0x00FF00, msg);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, ((window_w) / 2) - 70, window_h
+		/ 2, 0x00FF00, msg);
 	mlx_do_sync(game->mlx_ptr);
-	while (c < 1000000000)
-		c++;
+	/* 	while (c < 1000000000)
+			c++; */
 	sleep(2);
 	ft_close(game);
 }
@@ -96,8 +96,8 @@ int	main(int argc, char **argv)
 	map_check(&game);
 	game.mlx_ptr = mlx_init();
 	ft_upload_img(&game);
-	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE,
-			game.height * SIZE, "a link to the past..");
+	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE, game.height
+			* SIZE, "a link to the past..");
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
 	ft_print_map(&game);

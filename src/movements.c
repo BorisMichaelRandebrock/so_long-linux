@@ -30,7 +30,7 @@ int	ft_move_w(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.x = game->player.x - 1;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count + 1;
+		game->count++;
 		ft_print_map (game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
@@ -57,7 +57,7 @@ int	ft_move_s(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.x = game->player.x +1;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count +1;
+		game->count++;
 		ft_print_map (game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
@@ -84,7 +84,7 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.y = game->player.y -1 ;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count + 1;
+		game->count++;
 		ft_print_map (game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
@@ -111,7 +111,7 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.y = game->player.y +1;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count +1;
+		game->count++;
 		ft_print_map (game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
