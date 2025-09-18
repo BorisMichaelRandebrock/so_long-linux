@@ -30,12 +30,14 @@ void	ft_upload_enemies(t_map *game, int height, int width)
 	frame_paths[2] = "imgs/Enemy/Anim/Bat_2.xpm";
 	frame_paths[3] = "imgs/Enemy/Anim/Bat_3.xpm";
 	frame_paths[4] = "imgs/Enemy/Anim/Bat_4.xpm";
-	for (frame = 0; frame < 5; frame++)
+	frame = 0;
+	while (frame < 5)
 	{
 		game->enemy_img[0][frame] = mlx_xpm_file_to_image(game->mlx_ptr,
 				frame_paths[frame], &width, &height);
 		if (!game->enemy_img[0][frame])
 			exit_error(game, "Error\nFailed to load enemy animation frame\n",
 				0);
+		frame++;
 	}
 }
