@@ -61,8 +61,6 @@ void	ft_win(t_map *game)
 	mlx_string_put(game->mlx_ptr, game->win_ptr, ((window_w) / 2) - 70, window_h
 		/ 2, 0x00FF00, msg);
 	mlx_do_sync(game->mlx_ptr);
-	/* 	while (c < 1000000000)
-			c++; */
 	sleep(2);
 	ft_close(game);
 }
