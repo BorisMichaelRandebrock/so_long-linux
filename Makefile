@@ -19,9 +19,6 @@ OBJ_DIR = obj/
 SRC = main.c parse_it.c ft_read_map.c flood_map.c movements.c\
 	  upload_img.c exit.c position.c bonus.c bonus_bis.c enemies_parse.c\
 
-# LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -framework OpenGL \
-	   -framework AppKit
-
 LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -lm -lX11 -lXext -lbsd
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
@@ -41,14 +38,17 @@ MLX_DIR = ./mlx
 
 all: Makefile libs $(NAME)
 
-# %.o: %.c so_long.h ./Libft/libft.h ./ft_printf/ft_printf.h Makefile
-# 	$(CC) $(FLAGS) -c $< -o $@
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 	@mkdir -p $(OBJ_DIR)
 	$(CC) -I $(INC_DIR) -c $< -o $@ $(FLAGS)
 
 $(NAME): $(LIBFT) $(FT_PRINTF) $(MLX) $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBS) -o $(NAME)
+
+bonus: fclean
+	@echo "Compiling bonus version..."
+	@make all
+	@echo "Bonus version compiled!"
 
 valgrind:
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/some.ber
