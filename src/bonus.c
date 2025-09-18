@@ -84,8 +84,7 @@ void	move_enemies(t_map *game)
 	i = -1;
 	while (++i < (int)game->enemy_count)
 	{
-		// Small chance (e.g., 5%) to randomly change direction at any time
-		if (rand() % 10 == 0) // 1 in 20 chance → 5% per frame
+		if (rand() % 10 == 0)
 		{
 			r = rand() % 4;
 			if (r == 0)
@@ -97,7 +96,6 @@ void	move_enemies(t_map *game)
 			else
 				game->enemies[i].direction = 'U';
 		}
-		// Calculate next position
 		next_x = game->enemies[i].x;
 		next_y = game->enemies[i].y;
 		if (game->enemies[i].direction == 'R')
@@ -108,11 +106,9 @@ void	move_enemies(t_map *game)
 			next_x++;
 		else if (game->enemies[i].direction == 'U')
 			next_x--;
-		// Check boundaries and walls
 		if (next_x < 0 || next_x >= (int)game->height || next_y < 0
 			|| next_y >= (int)game->width || game->map[next_x][next_y] == '1')
 		{
-			// HIT WALL → pick random new direction
 			r = rand() % 4;
 			if (r == 0)
 				game->enemies[i].direction = 'R';
@@ -125,7 +121,6 @@ void	move_enemies(t_map *game)
 		}
 		else
 		{
-			// FLY FREELY — update position
 			game->enemies[i].x = next_x;
 			game->enemies[i].y = next_y;
 		}
@@ -141,7 +136,7 @@ int	enemy_update(void *param)
 	if (game->enemy_frame % 99 == 0)
 	{
 		move_enemies(game);
-		ft_enemy_touched(game); // ← Make sure this exists too
+		ft_enemy_touched(game);
 	}
 	ft_print_map(game);
 	draw_enemies(game);
@@ -215,11 +210,12 @@ void	parse_enemies(t_map *game)
 {
 	int	count;
 	int	i;
+	int	j;
+	int	idx;
 
 	count = 0;
 	i = -1;
-	int j;       // ← DECLARE j
-	int idx = 0; // ← DECLARE idx
+	idx = 0;
 	while (++i < (int)game->height)
 	{
 		j = -1;
@@ -262,11 +258,15 @@ void	parse_enemies(t_map *game)
 
 void	ft_upload_enemies(t_map *game, int height, int width)
 {
-	char	*frame_paths[5] = {"imgs/Enemy/Anim/Bat_0.xpm",
-			"imgs/Enemy/Anim/Bat_1.xpm", "imgs/Enemy/Anim/Bat_2.xpm",
-			"imgs/Enemy/Anim/Bat_3.xpm", "imgs/Enemy/Anim/Bat_4.xpm"};
+	int		frame;
+	char	*frame_paths[5];
 
-	for (int frame = 0; frame < 5; frame++)
+	frame_paths[0] = "imgs/Enemy/Anim/Bat_0.xpm";
+	frame_paths[1] = "imgs/Enemy/Anim/Bat_1.xpm";
+	frame_paths[2] = "imgs/Enemy/Anim/Bat_2.xpm";
+	frame_paths[3] = "imgs/Enemy/Anim/Bat_3.xpm";
+	frame_paths[4] = "imgs/Enemy/Anim/Bat_4.xpm";
+	for (frame = 0; frame < 5; frame++)
 	{
 		game->enemy_img[0][frame] = mlx_xpm_file_to_image(game->mlx_ptr,
 				frame_paths[frame], &width, &height);
@@ -275,44 +275,45 @@ void	ft_upload_enemies(t_map *game, int height, int width)
 				0);
 	}
 }
+
 /* void	parse_enemies(t_map *game)
 {
 	int	count;
 
-	count = 0, i;
-	// count = 0, i = -1, j, idx;
-	count = 0, i = -1, j = 0, idx = 0;
-	while (++i < (int)game->height)
+count = 0, i;
+// count = 0, i = -1, j, idx;
+count = 0, i = -1, j = 0, idx = 0;
+while (++i < (int)game->height)
+{
+j = -1;
+while (++j < (int)game->width)
+	if (game->map[i][j] == 'B')
+		count++;
+}
+if (count > 0)
+{
+if (!(game->enemies = malloc(sizeof(t_enemy) * count)))
+	exit_error(game, "Error\nFailed to allocate enemies\n", 0);
+game->enemy_count = count;
+i = -1;
+while (++i < (int)game->height && count > 0)
+{
+	j = -1;
+	while (++j < (int)game->width)
 	{
-		j = -1;
-		while (++j < (int)game->width)
-			if (game->map[i][j] == 'B')
-				count++;
-	}
-	if (count > 0)
-	{
-		if (!(game->enemies = malloc(sizeof(t_enemy) * count)))
-			exit_error(game, "Error\nFailed to allocate enemies\n", 0);
-		game->enemy_count = count;
-		i = -1;
-		while (++i < (int)game->height && count > 0)
+		if (game->map[i][j] == 'B')
 		{
-			j = -1;
-			while (++j < (int)game->width)
-			{
-				if (game->map[i][j] == 'B')
-				{
-					game->enemies[idx].x = i;
-					game->enemies[idx].y = j;
-					game->enemies[idx].chaos = rand() % 10 + 1;
-					game->enemies[idx].frame = 0;
-					game->enemies[idx].step_count = 0;
-					game->enemies[idx].direction = 'R';
-					game->map[i][j] = '0';
-					idx++;
-				}
-			}
+			game->enemies[idx].x = i;
+			game->enemies[idx].y = j;
+			game->enemies[idx].chaos = rand() % 10 + 1;
+			game->enemies[idx].frame = 0;
+			game->enemies[idx].step_count = 0;
+			game->enemies[idx].direction = 'R';
+			game->map[i][j] = '0';
+			idx++;
 		}
 	}
-	// if (count == 0) { game->enemies = NULL; game->enemy_count = 0; }
+}
+}
+// if (count == 0) { game->enemies = NULL; game->enemy_count = 0; }
 } */
