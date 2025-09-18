@@ -12,41 +12,8 @@
 
 #include "so_long.h"
 
-void	ft_enemy_touched(t_map *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->enemy_count)
-	{
-		if (game->player.x == game->enemies[i].x
-			&& game->player.y == game->enemies[i].y)
-		{
-			ft_printf("GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY! 💀\n");
-			mlx_string_put(game->mlx_ptr, game->win_ptr,
-				((game->width * SIZE) / 2) - 170, (game->height * SIZE) / 2,
-				0xFF0000, "GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY! 💀");
-			mlx_do_sync(game->mlx_ptr);
-			sleep(4);
-			ft_close(game);
-			exit(1);
-		}
-		i++;
-	}
-}
-
-void	put_movements(t_map *game)
-{
-	char	buffer[32];
-
-	snprintf(buffer, sizeof(buffer), "Movements: %d", game->count);
-	mlx_string_put(game->mlx_ptr, game->win_ptr, 15, 15, 0xFFFFFF, buffer);
-	ft_printf("Movements: %d\n", game->count);
-}
-
 int	ft_move_w(t_map *game)
 {
-
 	game->direction = 'W';
 	if (game->map[game->player.x -1][game->player.y] == 'E' && game->coins == 0)
 	{
@@ -56,19 +23,17 @@ int	ft_move_w(t_map *game)
 		exit(1);
 	}
 	if ((game->map[game->player.x - 1][game->player.y] != '1')
-	&& game->map[game->player.x - 1][game->player.y] != 'E')
-
+		&& game->map[game->player.x - 1][game->player.y] != 'E')
 	{
 		if (game->map[game->player.x - 1][game->player.y] == 'C')
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.x = game->player.x - 1;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count + 1;
+		game->count++;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
@@ -92,11 +57,10 @@ int	ft_move_s(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.x = game->player.x +1;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count +1;
+		game->count++;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
@@ -104,7 +68,6 @@ int	ft_move_s(t_map *game)
 
 int	ft_move_a(t_map *game)
 {
-
 	game->direction = 'A';
 	if ((game->map[game->player.x][game->player.y -1] == 'E'
 		&& game->coins == 0))
@@ -112,7 +75,6 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("🥇 YOU WON!!!\n");
 		ft_win(game);
-		exit(1);
 	}
 	if ((game->map[game->player.x][game->player.y -1] != '1')
 						&& game->map[game->player.x][game->player.y -1] != 'E')
@@ -122,11 +84,10 @@ int	ft_move_a(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.y = game->player.y -1 ;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count + 1;
+		game->count++;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
@@ -141,7 +102,6 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("YOU WON!!! 🧸\n");
 		ft_win(game);
-		exit(1);
 	}
 	if ((game->map[game->player.x][game->player.y +1] != '1')
 				&& game->map[game->player.x][game->player.y +1] != 'E')
@@ -151,33 +111,14 @@ int	ft_move_d(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.y = game->player.y +1;
 		game->map[game->player.x][game->player.y] = 'P';
-		game->count = game->count +1;
+		game->count++;
 		ft_print_map (game);
-		animate_enemies(game);
-		draw_enemies(game);
 		put_movements(game);
+		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
 	}
 	return (0);
 }
-
-void	animate_enemies(t_map *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->enemy_count)
-	{
-		game->enemies[i].step_count++;
-		if (game->enemies[i].step_count >= 3) // Change frame every 3 moves
-		{
-			game->enemies[i].frame = (game->enemies[i].frame + 1) % 5; // Cycle 0→1→2→3→4→0
-			game->enemies[i].step_count = 0;
-		}
-		i++;
-	}
-}
-
 
 int	ft_move(int keycode, t_map *game)
 {
@@ -193,18 +134,3 @@ int	ft_move(int keycode, t_map *game)
 		exit(1);
 	return (0);
 }
-
-/* int	ft_move(int keycode, t_map *game)
-{
-	if (keycode == 13 || keycode == 126)
-		ft_move_w(game);
-	if (keycode == 0 || keycode == 123)
-		ft_move_a(game);
-	if (keycode == 1 || keycode == 125)
-		ft_move_s(game);
-	if (keycode == 2 || keycode == 124)
-		ft_move_d(game);
-	if (keycode == 53)
-		exit(1);
-	return (0);
-} */

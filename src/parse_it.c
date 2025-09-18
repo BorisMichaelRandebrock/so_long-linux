@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	file_name(char	*fn)
+int	file_name(char *fn)
 {
 	char	*end;
 	int		i;
@@ -60,13 +60,11 @@ int	exit_player_check(t_map *game)
 	unsigned long	x;
 	int				player;
 	int				exit;
- 	// int				enemies;
 
 	x = 0;
 	y = 0;
 	player = 0;
 	exit = 0;
-	// enemies = 0;
 	while ((y < game->height) && (x < game->width))
 	{
 		if (game->map[y][x] == 'E')
@@ -74,8 +72,6 @@ int	exit_player_check(t_map *game)
 		if (game->map[y][x] == 'P')
 			player++;
 		y++;
-		/* if (game->map[y][x] == 'B')
-			enemies++; */
 		if (y == game->height)
 		{
 			x++;
@@ -89,9 +85,9 @@ int	exit_player_check(t_map *game)
 
 int	ft_collectibles(t_map *game)
 {
-	size_t		y;
-	size_t		x;
-	int			count;
+	size_t	y;
+	size_t	x;
+	int		count;
 
 	x = 0;
 	y = 0;
@@ -138,45 +134,44 @@ void	ft_rectangle_check(t_map *game)
 	}
 }
 
-void	parse_enemies(t_map *game)
+/* void	parse_enemies(t_map *game)
 {
-	int	count;
-	int	i, j;
-	int	idx;
+	int	count = 0, i;
 
-	count = 0;
-	for (i = 0; i < (int)game->height; i++)
+	count = 0, i = -1, j, idx;
+	count = 0, i = -1, j, idx = 0;
+	while (++i < (int)game->height)
 	{
-		for (j = 0; j < (int)game->width; j++)
-		{
+		j = -1;
+		while (++j < (int)game->width)
 			if (game->map[i][j] == 'B')
 				count++;
-		}
 	}
-
-
 	if (count > 0)
 	{
-		game->enemies = malloc(sizeof(t_enemy) * count);
-		if (!game->enemies)
+		if (!(game->enemies = malloc(sizeof(t_enemy) * count)))
 			exit_error(game, "Error\nFailed to allocate enemies\n", 0);
 		game->enemy_count = count;
-
-		idx = 0;
-		for (i = 0; i < (int)game->height; i++)
+		i = -1;
+		while (++i < (int)game->height && count > 0)
 		{
-			for (j = 0; j < (int)game->width; j++)
+			j = -1;
+			while (++j < (int)game->width)
 			{
 				if (game->map[i][j] == 'B')
 				{
 					game->enemies[idx].x = i;
 					game->enemies[idx].y = j;
+					game->enemies[idx].chaos = rand() % 10 + 1;
 					game->enemies[idx].frame = 0;
 					game->enemies[idx].step_count = 0;
-					idx++;
+					game->enemies[idx].direction = 'R';
 					game->map[i][j] = '0';
+					idx++;
 				}
 			}
 		}
 	}
+	// if (count == 0) { game->enemies = NULL; game->enemy_count = 0; }
 }
+ */
