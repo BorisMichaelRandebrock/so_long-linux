@@ -12,10 +12,11 @@
 
 #include "so_long.h"
 
-int	ft_move_w(t_map *game)
+static int	ft_move_w(t_map *game)
 {
 	game->direction = 'W';
-	if (game->map[game->player.x -1][game->player.y] == 'E' && game->coins == 0)
+	if (game->map[game->player.x - 1][game->player.y] == 'E'
+		&& game->coins == 0)
 	{
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("YOU WON!!! 🥳\n");
@@ -31,7 +32,7 @@ int	ft_move_w(t_map *game)
 		game->player.x = game->player.x - 1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count++;
-		ft_print_map (game);
+		ft_print_map(game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
@@ -39,26 +40,26 @@ int	ft_move_w(t_map *game)
 	return (0);
 }
 
-int	ft_move_s(t_map *game)
+static int	ft_move_s(t_map *game)
 {
 	game->direction = 'S';
-	if ((game->coins == 0)
-		&& game->map[game->player.x +1][game->player.y] == 'E')
+	if ((game->coins == 0) && game->map[game->player.x
+			+ 1][game->player.y] == 'E')
 	{
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("YOU 🗽 WON!!!\n");
 		ft_win(game);
 	}
 	if ((game->map[game->player.x + 1][game->player.y] != '1')
-			&& game->map[game->player.x + 1][game->player.y] != 'E')
+		&& game->map[game->player.x + 1][game->player.y] != 'E')
 	{
 		if (game->map[game->player.x + 1][game->player.y] == 'C')
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
-		game->player.x = game->player.x +1;
+		game->player.x = game->player.x + 1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count++;
-		ft_print_map (game);
+		ft_print_map(game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
@@ -66,26 +67,26 @@ int	ft_move_s(t_map *game)
 	return (0);
 }
 
-int	ft_move_a(t_map *game)
+static int	ft_move_a(t_map *game)
 {
 	game->direction = 'A';
-	if ((game->map[game->player.x][game->player.y -1] == 'E'
+	if ((game->map[game->player.x][game->player.y - 1] == 'E'
 		&& game->coins == 0))
 	{
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("🥇 YOU WON!!!\n");
 		ft_win(game);
 	}
-	if ((game->map[game->player.x][game->player.y -1] != '1')
-						&& game->map[game->player.x][game->player.y -1] != 'E')
+	if ((game->map[game->player.x][game->player.y - 1] != '1')
+		&& game->map[game->player.x][game->player.y - 1] != 'E')
 	{
 		if (game->map[game->player.x][game->player.y - 1] == 'C')
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
-		game->player.y = game->player.y -1 ;
+		game->player.y = game->player.y - 1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count++;
-		ft_print_map (game);
+		ft_print_map(game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);
@@ -93,26 +94,26 @@ int	ft_move_a(t_map *game)
 	return (0);
 }
 
-int	ft_move_d(t_map *game)
+static int	ft_move_d(t_map *game)
 {
 	game->direction = 'D';
-	if ((game->map[game->player.x][game->player.y +1] == 'E'
+	if ((game->map[game->player.x][game->player.y + 1] == 'E'
 		&& game->coins == 0))
 	{
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("YOU WON!!! 🧸\n");
 		ft_win(game);
 	}
-	if ((game->map[game->player.x][game->player.y +1] != '1')
-				&& game->map[game->player.x][game->player.y +1] != 'E')
+	if ((game->map[game->player.x][game->player.y + 1] != '1')
+		&& game->map[game->player.x][game->player.y + 1] != 'E')
 	{
 		if (game->map[game->player.x][game->player.y + 1] == 'C')
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
-		game->player.y = game->player.y +1;
+		game->player.y = game->player.y + 1;
 		game->map[game->player.x][game->player.y] = 'P';
 		game->count++;
-		ft_print_map (game);
+		ft_print_map(game);
 		put_movements(game);
 		ft_printf("Movements: %d\n", game->count);
 		ft_enemy_touched(game);

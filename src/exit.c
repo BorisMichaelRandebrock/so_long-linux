@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 //@@@ Tobe continued
 static void	fill_rect_helper(int *data, t_rect *rect, int color,
-	void *mlx_ptr_unused)
+		void *mlx_ptr_unused)
 {
 	int	bpp;
 	int	size_l;
@@ -35,7 +36,7 @@ static void	fill_rect_helper(int *data, t_rect *rect, int color,
 	}
 }
 
-void	mlx_rectangle(void *mlx_ptr, void *win_ptr, t_rect *rect, int color)
+static void	mlx_rectangle(void *mlx_ptr, void *win_ptr, t_rect *rect, int color)
 {
 	void	*img;
 	int		*data;
@@ -67,9 +68,9 @@ void	ft_enemy_touched(t_map *game)
 			rect.w = game->width * SIZE;
 			rect.h = game->height * SIZE;
 			mlx_rectangle(game->mlx_ptr, game->win_ptr, &rect, 0x000000);
-			mlx_string_put(game->mlx_ptr, game->win_ptr,
-				((game->width * SIZE) / 2) - 170, (game->height * SIZE) / 2,
-				0xFF0000, "GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY!");
+			mlx_string_put(game->mlx_ptr, game->win_ptr, ((game->width * SIZE)
+					/ 2) - 170, (game->height * SIZE) / 2, 0xFF0000,
+				"GAME OVER! YOU HAVE BEEN CAUGHT BY THE ENEMY!");
 			mlx_do_sync(game->mlx_ptr);
 			sleep(4);
 			ft_close(game);

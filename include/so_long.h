@@ -81,42 +81,42 @@ typedef struct s_map
 	int		enemy_frame;
 }			t_map;
 
-void	exit_error(t_map *game, char *str, int mod); // main.c
-void	player_position(t_map *game);                // main.c
-void	ft_win(t_map *game);                         // main
-void	tokemo(char **arr, int line);                // main
-int	file_name(char *fn);                          // parse_it.c
-int	parse_it(int argc, char **argv);              // parse_it.c
-int	exit_player_check(t_map *game);               // parse_it.c
-int	ft_collectibles(t_map *game);                 // parse_it.c
-void	ft_rectangle_check(t_map *game);             // paarse_it.c
-void	ft_read_map(char **argv, t_map *game);       // ft_read_map.c
-void	map_check(t_map *game);                      // read_map.c
-void	ft_free_map(t_map *game);                    // ft_read_map.c
-void	ft_measures(t_map *game);                    // ft_read_map.c
-int	ft_outer_limits(t_map *game);                 // read_map.c
-int	ft_move(int keycode, t_map *game);            // movements.c
-void	flood_map(t_map *map, size_t x, size_t y);   // flood_map.c
-void	ft_check_exit(t_map *game);                  // flood_map
+void	exit_error(t_map *game, char *str, int mod);          // main.c
+void	player_position(t_map *game);                         // main.c
+void	ft_win(t_map *game);                                  // main
+void	tokemo(char **arr, int line);                         // main
+int		file_name(char *fn);                                   // parse_it.c
+int		parse_it(int argc, char **argv);                       // parse_it.c
+int		exit_player_check(t_map *game);                        // parse_it.c
+int		ft_collectibles(t_map *game);                          // parse_it.c
+void	ft_rectangle_check(t_map *game);                      // parse_it.c
+void	ft_read_map(char **argv, t_map *game);                // ft_read_map.c
+void	map_check(t_map *game);                               // read_map.c
+void	ft_free_map(t_map *game);                             // ft_read_map.c
+void	ft_measures(t_map *game);                             // ft_read_map.c
+int		ft_outer_limits(t_map *game);                          // read_map.c
+int		ft_move(int keycode, t_map *game);                     // movements.c
+void	flood_map(t_map *map, size_t x, size_t y);            // flood_map.c
+void	ft_check_exit(t_map *game);                           // flood_map
+int		ft_fake_position(int count1, int count2, t_map *game); // upload_img
 void		ft_upload_more(t_map *game, int height, int width);
 void	ft_upload_img(t_map *game);                              // upload_img
-int	ft_print_map(t_map *game);                                // upload_img
-int	ft_cant(char c);                                          // upload_img.c
-int	ft_player_position(int count1, int count2, t_map *game);  // position.c
-int	ft_o_position(int count1, int count2, t_map *game);       // position
-int	ft_wall_position(int count1, int count2, t_map *game);    // position
-int	ft_exit_position(int count1, int count2, t_map *game);    // positione
-int	ft_collect_position(int count1, int count2, t_map *game); // position
-int	ft_fake_position(int count1, int count2, t_map *game);    // upload_img
-int	ft_close(t_map *game);                                    // exit
-void	ft_enemy_touched(t_map *game);                           // movements.c
-void	put_movements(t_map *game);                              // bonus_bis.c
-void	parse_enemies(t_map *game);                              // parse_it.c
-void	draw_enemies(t_map *game);                               // upload_img.c
-void	animate_enemies(t_map *game);                            // bonus.c
-int	enemy_update(void *param);                                // bonus.c
-void	move_enemies(t_map *game);                               // bonus.c
-void		ft_upload_enemies(t_map *game, int height, int width);
-void		set_random_direction(t_enemy *enemy);
-void		calculate_next_position(t_enemy *enemy, int *next_x, int *next_y);
+int		ft_print_map(t_map *game);                                // upload_img
+int		ft_cant(char c);                                          // upload_img.c
+int		ft_player_position(int count1, int count2, t_map *game);  // position.c
+int		ft_o_position(int count1, int count2, t_map *game);       // position.c
+int		ft_wall_position(int count1, int count2, t_map *game);    // position.c
+int		ft_exit_position(int count1, int count2, t_map *game);    // position.c
+int		ft_collect_position(int count1, int count2, t_map *game); // position.c
+void	parse_enemies(t_map *game);                             // enemies_parse.c
+void	animate_enemies(t_map *game);                        // bonus.c
+void	move_enemies(t_map *game);                           // bonus.c
+int		enemy_update(void *param);                         // bonus.c
+void	draw_enemies(t_map *game);                           // bonus.c
+void	put_movements(t_map *game);                          // bonus_bis.c
+void	ft_upload_enemies(t_map *game, int height, int width);// bonus_bis.c
+void	set_random_direction(t_enemy *enemy);               // bonus_bis.c
+void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y); // bonus_bis.c
+void	ft_enemy_touched(t_map *game);                       // exit.c
+int		ft_close(t_map *game);                              // exit.c
 #endif
