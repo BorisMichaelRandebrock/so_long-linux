@@ -59,7 +59,7 @@ void	ft_win(t_map *game)
 	window_w = game->width * SIZE;
 	window_h = game->height * SIZE;
 	mlx_string_put(game->mlx_ptr, game->win_ptr, ((window_w) / 2) - 70, window_h
-		/ 2, 0x00FF00, msg);
+		/ 2, 0xFFFF00, msg);
 	mlx_do_sync(game->mlx_ptr);
 	sleep(2);
 	ft_close(game);

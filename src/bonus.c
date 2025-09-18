@@ -84,6 +84,8 @@ void	draw_enemies(t_map *game)
 	}
 }
 
+/*
+
 void	parse_enemies(t_map *game)
 {
 	int	count;
@@ -133,6 +135,9 @@ void	parse_enemies(t_map *game)
 		game->enemy_count = 0;
 	}
 }
+
+ */
+
 /*
 void	ft_upload_enemies(t_map *game, int height, int width)
 {
