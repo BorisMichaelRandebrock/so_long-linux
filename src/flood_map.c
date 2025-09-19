@@ -42,10 +42,11 @@ void	ft_check_exit(t_map *game)
 					"ERROR\nOne or more collectables "
 					"are not reachable\n",
 					0);
-			else if (game->map_cpy[x][y] == 'E' && game->map_cpy[x
-				- 1][y] != 'V' && game->map_cpy[x + 1][y] != 'V'
-				&& game->map_cpy[x][y - 1] != 'V' && game->map_cpy[x][y
-				+ 1] != 'V')
+			else if (game->map_cpy[x][y] == 'E'
+				&& game->map_cpy[x - 1][y] != 'V'
+				&& game->map_cpy[x + 1][y] != 'V'
+				&& game->map_cpy[x][y - 1] != 'V'
+				&& game->map_cpy[x][y + 1] != 'V')
 				exit_error(game, "ERROR\nExit not reachable\n", 0);
 			y++;
 		}
