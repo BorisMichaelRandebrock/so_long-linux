@@ -21,8 +21,9 @@ static int	ft_move_w(t_map *game)
 		game->map[game->player.x][game->player.y] = '0';
 		ft_printf("YOU WON!!! 🥳\n");
 		ft_win(game);
-		exit(1);
 	}
+	if (game->map[game->player.x - 1][game->player.y] == 'T')
+		ft_teletransport(game);
 	if ((game->map[game->player.x - 1][game->player.y] != '1')
 		&& game->map[game->player.x - 1][game->player.y] != 'E')
 	{
@@ -50,6 +51,8 @@ static int	ft_move_s(t_map *game)
 		ft_printf("YOU 🗽 WON!!!\n");
 		ft_win(game);
 	}
+	if (game->map[game->player.x + 1][game->player.y] == 'T')
+		ft_teletransport(game);
 	if ((game->map[game->player.x + 1][game->player.y] != '1')
 		&& game->map[game->player.x + 1][game->player.y] != 'E')
 	{
@@ -77,6 +80,8 @@ static int	ft_move_a(t_map *game)
 		ft_printf("🥇 YOU WON!!!\n");
 		ft_win(game);
 	}
+	if (game->map[game->player.x][game->player.y - 1] == 'T')
+		ft_teletransport(game);
 	if ((game->map[game->player.x][game->player.y - 1] != '1')
 		&& game->map[game->player.x][game->player.y - 1] != 'E')
 	{
@@ -104,6 +109,8 @@ static int	ft_move_d(t_map *game)
 		ft_printf("YOU WON!!! 🧸\n");
 		ft_win(game);
 	}
+	if (game->map[game->player.x][game->player.y + 1] == 'T')
+		ft_teletransport(game);
 	if ((game->map[game->player.x][game->player.y + 1] != '1')
 		&& game->map[game->player.x][game->player.y + 1] != 'E')
 	{

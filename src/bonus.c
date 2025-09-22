@@ -10,7 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _POSIX_C_SOURCE 200809L
+#include <time.h>
+#include <unistd.h>
 #include "so_long.h"
+
+unsigned long	get_time_ms(void)
+{
+	struct timespec	ts;
+
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+}
 
 void	animate_enemies(t_map *game)
 {
@@ -38,7 +49,7 @@ void	move_enemies(t_map *game)
 	i = -1;
 	while (++i < (int)game->enemy_count)
 	{
-		if (rand() % 10 == 0)
+		if (rand() % 2 == 0)
 			set_random_direction(&game->enemies[i]);
 		calculate_next_position(&game->enemies[i], &next_x, &next_y);
 		if (next_x < 0 || next_x >= (int)game->height || next_y < 0
@@ -54,14 +65,17 @@ void	move_enemies(t_map *game)
 
 int	enemy_update(void *param)
 {
-	t_map	*game;
+	t_map			*game;
+	unsigned long	current_time;
 
+	current_time = get_time_ms();
 	game = (t_map *)param;
 	game->enemy_frame++;
-	if (game->enemy_frame % 99 == 0)
+	if (current_time - game->last_move_time >= 420)
 	{
 		move_enemies(game);
 		ft_enemy_touched(game);
+		game->last_move_time = current_time;
 	}
 	ft_print_map(game);
 	draw_enemies(game);

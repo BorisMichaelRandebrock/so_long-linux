@@ -70,3 +70,32 @@ void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y)
 	else if (enemy->direction == 'U')
 		(*next_x)--;
 }
+
+void	ft_teletransport(t_map *game)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 0;
+	while (x < game->height)
+	{
+		y = 0;
+		while (y < game->width)
+		{
+			if (game->map[x][y] == 'D')
+			{
+				game->map[game->player.x][game->player.y] = '0';
+				game->player.x = x;
+				game->player.y = y;
+				game->map[game->player.x][game->player.y] = 'P';
+				game->count++;
+				ft_print_map(game);
+				put_movements(game);
+				ft_printf("Teleported! Movements: %d\n", game->count);
+				return ;
+			}
+			y++;
+		}
+		x++;
+	}
+}
