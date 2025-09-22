@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _POSIX_C_SOURCE 200809L
 #include "so_long.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
@@ -88,6 +89,7 @@ int	main(int argc, char **argv)
 	rand();
 	game.count = 0;
 	game.enemy_frame = 0;
+	game.last_move_time = get_time_ms();
 	parse_it(argc, argv);
 	ft_read_map(argv, &game);
 	ft_measures(&game);
@@ -105,3 +107,14 @@ int	main(int argc, char **argv)
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }
+
+/* asd(&game);
+
+void asd(t_map *game) {
+	ft_printf("Maps flooded\n");
+   tokemo(game->map,0);
+   ft_printf("\n");
+   tokemo(game->map_cpy,0);
+   ft_printf("\n");
+}
+ */

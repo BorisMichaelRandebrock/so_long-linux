@@ -96,7 +96,7 @@ int	ft_print_map(t_map *game)
 int	ft_cant(char c)
 {
 	if (c != 'E' && c != 'P' && c != '0' && c != '1'
-		&& c != 'F' && c != 'B')
+		&& c != 'F' && c != 'B' && c != 'T' && c != 'D')
 		return (-1);
 	return (1);
 }

@@ -79,6 +79,7 @@ typedef struct s_map
 	int		enemy_count;
 	void	*enemy_img[4][5];
 	int		enemy_frame;
+	unsigned long	last_move_time;
 }			t_map;
 
 void	exit_error(t_map *game, char *str, int mod);          // main.c
@@ -109,6 +110,7 @@ int		ft_wall_position(int count1, int count2, t_map *game);    // position.c
 int		ft_exit_position(int count1, int count2, t_map *game);    // position.c
 int		ft_collect_position(int count1, int count2, t_map *game); // position.c
 void	parse_enemies(t_map *game);                             // enemies_parse.c
+unsigned long get_time_ms(void);													//bonus.c
 void	animate_enemies(t_map *game);                        // bonus.c
 void	move_enemies(t_map *game);                           // bonus.c
 int		enemy_update(void *param);                         // bonus.c
@@ -116,7 +118,10 @@ void	draw_enemies(t_map *game);                           // bonus.c
 void	put_movements(t_map *game);                          // bonus_bis.c
 void	ft_upload_enemies(t_map *game, int height, int width);// bonus_bis.c
 void	set_random_direction(t_enemy *enemy);               // bonus_bis.c
-void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y); // bonus_bis.c
+void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y); 
+// bonus_bis.c
+void	ft_teletransport(t_map *game);
 void	ft_enemy_touched(t_map *game);                       // exit.c
 int		ft_close(t_map *game);                              // exit.c
 #endif
+ 
