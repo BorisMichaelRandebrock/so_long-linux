@@ -18,15 +18,14 @@
 #include <time.h>
 #include <unistd.h>
 
-void	exit_error(t_map *game, char *str, int mod)
+void	ft_upload_warp(t_map *game, int height, int width)
 {
-	size_t	size;
-
-	size = ft_strlen(str);
-	if (!mod)
-		ft_free_map(game);
-	write(2, str, size);
-	exit(1);
+	game->imgs[8].img_ptr = mlx_xpm_file_to_image(game->mlx_ptr,
+			"imgs/warp2.xpm", &width, &height);
+	if (!game->imgs[8].img_ptr)
+		exit_error(game, "Error\nFailed to load warp sprite\n", 0);
+	game->imgs[8].data = (int *)mlx_get_data_addr(game->imgs[8].img_ptr,
+			&game->imgs[8].bpp, &game->imgs[8].size_l, &game->imgs[8].endian);
 }
 
 void	player_position(t_map *game)

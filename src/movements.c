@@ -23,7 +23,15 @@ static int	ft_move_w(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x - 1][game->player.y] == 'T')
-		ft_teletransport(game);
+		{
+			game->map[game->player.x][game->player.y] = '0';
+			game->player.x = game->player.x - 1;
+			game->map[game->player.x][game->player.y] = 'P';
+			ft_teletransport(game);
+			ft_print_map(game);
+			ft_enemy_touched(game);
+			return (0);
+		}
 	if ((game->map[game->player.x - 1][game->player.y] != '1')
 		&& game->map[game->player.x - 1][game->player.y] != 'E')
 	{
@@ -52,7 +60,15 @@ static int	ft_move_s(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x + 1][game->player.y] == 'T')
-		ft_teletransport(game);
+		{
+			game->map[game->player.x][game->player.y] = '0';
+			game->player.x = game->player.x + 1;
+			game->map[game->player.x][game->player.y] = 'P';
+			ft_teletransport(game);
+			ft_print_map(game);
+			ft_enemy_touched(game);
+			return (0);
+		}
 	if ((game->map[game->player.x + 1][game->player.y] != '1')
 		&& game->map[game->player.x + 1][game->player.y] != 'E')
 	{
@@ -81,7 +97,15 @@ static int	ft_move_a(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x][game->player.y - 1] == 'T')
-		ft_teletransport(game);
+		{
+			game->map[game->player.x][game->player.y] = '0';
+			game->player.y = game->player.y - 1;
+			game->map[game->player.x][game->player.y] = 'P';
+			ft_teletransport(game);
+			ft_print_map(game);
+			ft_enemy_touched(game);
+			return (0);
+		}
 	if ((game->map[game->player.x][game->player.y - 1] != '1')
 		&& game->map[game->player.x][game->player.y - 1] != 'E')
 	{
@@ -110,7 +134,15 @@ static int	ft_move_d(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x][game->player.y + 1] == 'T')
-		ft_teletransport(game);
+		{
+			game->map[game->player.x][game->player.y] = '0';
+			game->player.y = game->player.y + 1;
+			game->map[game->player.x][game->player.y] = 'P';
+			ft_teletransport(game);
+			ft_print_map(game);
+			ft_enemy_touched(game);
+			return (0);
+		}
 	if ((game->map[game->player.x][game->player.y + 1] != '1')
 		&& game->map[game->player.x][game->player.y + 1] != 'E')
 	{

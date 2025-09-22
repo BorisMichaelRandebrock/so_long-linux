@@ -82,7 +82,7 @@ void	ft_teletransport(t_map *game)
 		y = 0;
 		while (y < game->width)
 		{
-			if (game->map[x][y] == 'D')
+			if (game->map[x][y] == 'T')
 			{
 				game->map[game->player.x][game->player.y] = '0';
 				game->player.x = x;
@@ -99,3 +99,4 @@ void	ft_teletransport(t_map *game)
 		x++;
 	}
 }
+
