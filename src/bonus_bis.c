@@ -75,6 +75,38 @@ void	ft_teletransport(t_map *game)
 {
 	size_t	x;
 	size_t	y;
+	size_t	current_x;
+	size_t	current_y;
+
+	current_x = game->player.x;
+	current_y = game->player.y;
+
+	x = 0;
+	while (x < game->height)
+	{
+		y = 0;
+		while (y < game->width)
+		{
+			if (game->map[x][y] == 'T' && !(x == current_x && y == current_y))
+			{
+				game->player.x = x;
+				game->player.y = y;
+				game->count++;
+				ft_print_map(game);
+				put_movements(game);
+				ft_printf("Teleported! Movements: %d\n", game->count);
+				return ;
+			}
+			y++;
+		}
+		x++;
+	}
+}
+
+/* void	ft_teletransport(t_map *game)
+{
+	size_t	x;
+	size_t	y;
 
 	x = 0;
 	while (x < game->height)
@@ -100,3 +132,5 @@ void	ft_teletransport(t_map *game)
 	}
 }
 
+
+ */

@@ -26,7 +26,7 @@ static int	ft_move_w(t_map *game)
 		{
 			game->map[game->player.x][game->player.y] = '0';
 			game->player.x = game->player.x - 1;
-			game->map[game->player.x][game->player.y] = 'P';
+			//game->map[game->player.x][game->player.y] = 'T';
 			ft_teletransport(game);
 			ft_print_map(game);
 			ft_enemy_touched(game);
@@ -63,7 +63,7 @@ static int	ft_move_s(t_map *game)
 		{
 			game->map[game->player.x][game->player.y] = '0';
 			game->player.x = game->player.x + 1;
-			game->map[game->player.x][game->player.y] = 'P';
+			//game->map[game->player.x][game->player.y] = 'T';
 			ft_teletransport(game);
 			ft_print_map(game);
 			ft_enemy_touched(game);
@@ -100,7 +100,7 @@ static int	ft_move_a(t_map *game)
 		{
 			game->map[game->player.x][game->player.y] = '0';
 			game->player.y = game->player.y - 1;
-			game->map[game->player.x][game->player.y] = 'P';
+			//game->map[game->player.x][game->player.y] = 'T';
 			ft_teletransport(game);
 			ft_print_map(game);
 			ft_enemy_touched(game);
@@ -137,7 +137,7 @@ static int	ft_move_d(t_map *game)
 		{
 			game->map[game->player.x][game->player.y] = '0';
 			game->player.y = game->player.y + 1;
-			game->map[game->player.x][game->player.y] = 'P';
+			//game->map[game->player.x][game->player.y] = 'T';
 			ft_teletransport(game);
 			ft_print_map(game);
 			ft_enemy_touched(game);
