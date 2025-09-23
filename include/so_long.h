@@ -80,6 +80,9 @@ typedef struct s_map
 	void	*enemy_img[4][5];
 	int		enemy_frame;
 	unsigned long	last_move_time;
+	int		current_level;
+	char	**level_files;
+	int		total_levels;
 }			t_map;
 
 void	player_position(t_map *game);                         // main.c

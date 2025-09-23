@@ -45,6 +45,26 @@ void	player_position(t_map *game)
 	}
 }
 
+/* void	ft_win(t_map *game)
+{
+	int		c;
+	int		window_w;
+	int		window_h;
+	char	*msg;
+
+	msg = "CONGRATULATIONS YOU WIN!!!\n";
+	c = 0;
+	game->count++;
+	ft_printf("Total number of movements: %d\n", game->count);
+	window_w = game->width * SIZE;
+	window_h = game->height * SIZE;
+	mlx_string_put(game->mlx_ptr, game->win_ptr, ((window_w) / 2) - 70, window_h
+		/ 2, 0xFFFF00, msg);
+	mlx_do_sync(game->mlx_ptr);
+	sleep(2);
+	ft_close(game);
+} */
+
 static void	load_level(t_map *game, char *level_file)
 {
 	if (game->map)
@@ -67,35 +87,13 @@ static void	load_level(t_map *game, char *level_file)
 	map_check(game);
 	player_position(game);
 
-	// Upload images for new level
-	ft_upload_img(game);
-}
-
-static void	load_level_without_clear(t_map *game, char *level_file)
-{
-	// Free previous level data if exists
-	if (game->map)
-		ft_free_map(game);
-
-	// Reset game state for new level
-	game->count = 0;
-	game->coins = 0;
-	game->coins_cpy = 0;
-
-	// Create argv array for ft_read_map
-	char *argv[3];
-	argv[0] = "./so_long";
-	argv[1] = level_file;
-	argv[2] = NULL;
-
-	// Read and parse new level
-	ft_read_map(argv, game);
-	ft_measures(game);
-	map_check(game);
-	player_position(game);
+	// Initialize MLX if not already done
+	if (!game->mlx_ptr)
+		game->mlx_ptr = mlx_init();
 
 	// Upload images for new level
 	ft_upload_img(game);
+	ft_print_map(game);
 }
 
 void	ft_win(t_map *game)
@@ -109,13 +107,13 @@ void	ft_win(t_map *game)
 		game->current_level++;
 		ft_printf("Loading Level %d...\n", game->current_level + 1);
 		load_level(game, game->level_files[game->current_level]);
-		mlx_clear_window(game->mlx_ptr, game->win_ptr);
+		mlx_clear_window(game->mlx_ptr, game->win_ptr);  // ← Add this line
 		ft_print_map(game);
 	}
 	else
 	{
 		// Game completed - show final message
-		int	window_w = game->width * SIZE;
+		int	window_w =  game->width * SIZE;
 		int	window_h = game->height * SIZE;
 		mlx_string_put(game->mlx_ptr, game->win_ptr,
 			(window_w / 2) - 100, window_h / 2, 0x00FF00, "CONGRATULATIONS! GAME COMPLETED!");
@@ -141,36 +139,63 @@ void	tokemo(char **arr, int line)
 	}
 }
 
+static void load_level_without_clear(t_map *game, char *level_file)
+{
+    // Free previous level data if exists
+    if (game->map)
+        ft_free_map(game);
+
+    // Reset game state for new level
+    game->count = 0;
+    game->coins = 0;
+    game->coins_cpy = 0;
+
+    // Create argv array for ft_read_map
+    char *argv[3];
+    argv[0] = "./so_long";
+    argv[1] = level_file;
+    argv[2] = NULL;
+
+    // Read and parse new level
+    ft_read_map(argv, game);
+    ft_measures(game);
+    map_check(game);
+    player_position(game);
+
+    // Upload images for new level
+    ft_upload_img(game);
+
+    // Don't clear window here - it doesn't exist yet
+}
+
 int	main(int argc, char **argv)
 {
 	t_map	game;
-	int		fd;
 
 	// Initialize game structure
 	rand();
-	game.count = 0;
-	game.enemy_frame = 0;
-	game.last_move_time = get_time_ms();
-	game.current_level = 0;
-	game.map = NULL;
-	game.map_cpy = NULL;
-	game.mlx_ptr = NULL;
+    game.count = 0;
+    game.enemy_frame = 0;
+    game.last_move_time = get_time_ms();
+    game.current_level = 0;
+    game.map = NULL;
+    game.map_cpy = NULL;
+    game.mlx_ptr = NULL;
 
-	// Only parse arguments if provided (for single file mode)
-	if (argc == 2)
-		parse_it(argc, argv);
-	else if (argc != 1)
-		exit_error(NULL, "ERROR\nIncorrect number of arguments\n", 1);
+    // Only parse arguments if provided
+    //if (argc == 2)
+    parse_it(argc, argv);
 
-	game.mlx_ptr = mlx_init();
-	if (!game.mlx_ptr)
-		exit_error(NULL, "ERROR\nFailed to initialize MLX\n", 1);
+    game.mlx_ptr = mlx_init();
+    if (!game.mlx_ptr)
+        exit_error(NULL, "ERROR\nFailed to initialize MLX\n", 1);
+
 
 	// Allocate memory for level files (9 levels + NULL terminator)
-	game.level_files = malloc(sizeof(char *) * 10);
-	if (!game.level_files)
+	game.level_files = malloc(sizeof(char *) * 10);  // 9 levels + 1 for NULL
+	/* if (!game.level_files)
 		exit_error(NULL, "ERROR\nFailed to allocate memory for level files\n", 1);
-
+ */
 	game.total_levels = 0;
 
 	// Add level files
@@ -203,28 +228,37 @@ int	main(int argc, char **argv)
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
 	game.level_files[game.total_levels] = NULL;  // Null-terminate array
 
-	// Load first level (without clearing window that doesn't exist yet)
-	load_level_without_clear(&game, game.level_files[game.current_level]);
+	// Parse command line arguments
 
-	// Check if level file exists
-	fd = open(game.level_files[game.current_level], O_RDONLY);
+	load_level_without_clear(&game, game.level_files[game.current_level]);
+	//load_level(&game, game.level_files[game.current_level]);
+	int fd = open(game.level_files[game.current_level], O_RDONLY);
 	if (fd == -1)
 		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
-	close(fd);  // Don't forget to close the file descriptor
 
-	// Create window AFTER loading the level (so we know width/height)
-	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE,
-		game.height * SIZE, "a link to the past..");
+	// Load first level
+
+	// Create window
+	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE, game.height * SIZE, "a link to the past..");
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
-
-	// Now we can safely print the map
-	ft_print_map(&game);
-
+	//mlx_clear_window(game.mlx_ptr, game.win_ptr);
 	// Set up hooks and start game loop
+	ft_print_map(&game);
 	mlx_loop_hook(game.mlx_ptr, enemy_update, &game);
 	mlx_hook(game.win_ptr, 2, 1L << 0, ft_move, &game);
 	mlx_hook(game.win_ptr, 17, 1L << 17, ft_close, &game);
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }
+
+/* asd(&game);
+
+void asd(t_map *game) {
+	ft_printf("Maps flooded\n");
+   tokemo(game->map,0);
+   ft_printf("\n");
+   tokemo(game->map_cpy,0);
+   ft_printf("\n");
+}
+ */

@@ -42,15 +42,30 @@ int	parse_it(int argc, char **argv)
 
 	fd = (open(argv[1], O_RDONLY));
 	bytes_read = read(fd, &buffer, 1);
-	if (argc != 2)
+	if (argc != 1 && argc != 2)
 		exit_error(NULL, "ERROR\nIncorrect number of arguments\n", 1);
-	if (fd == -1)
+	if (argc == 2)
+	{
+		int fd = open(argv[1], O_RDONLY);
+		char buffer;
+		ssize_t bytes_read;
+
+		bytes_read = read(fd, &buffer, 1);
+		if (fd == -1)
+			exit_error(NULL, "ERROR\nWrong file reading\n", 1);
+		else if (file_name(argv[1]) == -1)
+			exit_error(NULL, "ERROR\nWrong file type\n", 1);
+		else if (fd > 0 && bytes_read == 0)
+			exit_error(NULL, "ERROR\nEmpty file\n", 1);
+		close(fd);
+	}
+	/* if (fd == -1)
 		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
 	else if (file_name(argv[1]) == -1)
 		exit_error(NULL, "ERROR\nWrong file type\n", 1);
 	else if (fd > 0 && bytes_read == 0)
 		exit_error(NULL, "ERROR\nEmpty file\n", 1);
-	close(fd);
+	close(fd); */
 	return (0);
 }
 
