@@ -15,7 +15,7 @@
 int	ft_fake_position(int count1, int count2, t_map *game)
 {
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-		game->imgs[1].img_ptr, (count2 * SIZE ), (count1 * SIZE));
+		game->imgs[1].img_ptr, (count2 * SIZE), (count1 * SIZE));
 	return (0);
 }
 
@@ -66,7 +66,7 @@ void	ft_upload_img(t_map *game)
 	ft_upload_warp(game, height, width);
 }
 
-int	ft_print_map(t_map *game)
+void	ft_print_map(t_map *game)
 {
 	game->y = 0;
 	game->x = 0;
@@ -93,7 +93,6 @@ int	ft_print_map(t_map *game)
 			game->y = 0;
 		}
 	}
-	return (0);
 }
 
 int	ft_cant(char c)

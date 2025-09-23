@@ -106,7 +106,7 @@ void	ft_check_exit(t_map *game);                           // flood_map.c
 int		ft_fake_position(int count1, int count2, t_map *game); // upload_img.c
 void		ft_upload_more(t_map *game, int height, int width);  //upload_img.c
 void	ft_upload_img(t_map *game);                              // upload_img
-int		ft_print_map(t_map *game);                                // upload_img
+void		ft_print_map(t_map *game);                                // upload_img
 int		ft_cant(char c);                                          // upload_img.c
 
 int		ft_player_position(int count1, int count2, t_map *game);  // position.c

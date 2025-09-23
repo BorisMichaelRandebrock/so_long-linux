@@ -71,6 +71,12 @@ void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y)
 		(*next_x)--;
 }
 
+void	teletransport_help(t_map *game)
+{
+	ft_print_map(game);
+	put_movements(game);
+	ft_printf("Teleported! Movements: %d\n", game->count);
+}
 void	ft_teletransport(t_map *game)
 {
 	size_t	x;
@@ -80,7 +86,6 @@ void	ft_teletransport(t_map *game)
 
 	current_x = game->player.x;
 	current_y = game->player.y;
-
 	x = 0;
 	while (x < game->height)
 	{
@@ -92,17 +97,13 @@ void	ft_teletransport(t_map *game)
 				game->player.x = x;
 				game->player.y = y;
 				game->count++;
-				ft_print_map(game);
-				put_movements(game);
-				ft_printf("Teleported! Movements: %d\n", game->count);
-				return ;
+				teletransport_help(game);
 			}
 			y++;
 		}
 		x++;
 	}
 }
-
 /* void	ft_teletransport(t_map *game)
 {
 	size_t	x;
