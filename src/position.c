@@ -61,9 +61,10 @@ int	ft_collect_position(int count1, int count2, t_map *game)
 	return (0);
 }
 
-int	ft_warp_position(int count1, int count2, t_map *game)
+/* int	ft_warp_position(int count1, int count2, t_map *game)
 {
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 		game->imgs[8].img_ptr, (count2 * SIZE), (count1 * SIZE));
 	return (0);
 }
+ */

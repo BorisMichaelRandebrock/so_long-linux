@@ -128,8 +128,12 @@ void	ft_upload_enemies(t_map *game, int height, int width);// bonus_bis.c
 void	set_random_direction(t_enemy *enemy);               // bonus_bis.c
 void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y); 
 // bonus_bis.c
-void	ft_teletransport(t_map *game);	//bonus_bis
 int	ft_warp_position(int count1, int count2, t_map *game);
+void	ft_teletransport(t_map *game);	//warp.c
+void	move_util(t_map *game); //warp.c
+void	warp_helper(t_map *game); //warp.c
+int	ft_warp_position(int count1, int count2, t_map *game); //warp.c
+
 void	exit_error(t_map *game, char *str, int mod);          // exit.c
 void	ft_enemy_touched(t_map *game);                       // exit.c
 int		ft_close(t_map *game);                              // exit.c

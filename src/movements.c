@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	move_util(t_map *game)
+/* void	move_util(t_map *game)
 {
 	game->map[game->player.x][game->player.y] = 'P';
 	game->count++;
@@ -27,7 +27,7 @@ void	warp_helper(t_map *game)
 	ft_teletransport(game);
 	ft_print_map(game);
 	ft_enemy_touched(game);
-}
+} */
 
 static int	ft_move_w(t_map *game)
 {

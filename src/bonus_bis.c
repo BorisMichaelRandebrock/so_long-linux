@@ -70,7 +70,7 @@ void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y)
 	else if (enemy->direction == 'U')
 		(*next_x)--;
 }
-
+/*
 void	teletransport_help(t_map *game)
 {
 	ft_print_map(game);
@@ -103,7 +103,8 @@ void	ft_teletransport(t_map *game)
 		}
 		x++;
 	}
-}
+} */
+
 /* void	ft_teletransport(t_map *game)
 {
 	size_t	x;
