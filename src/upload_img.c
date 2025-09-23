@@ -44,7 +44,7 @@ void	ft_upload_img(t_map *game)
 	int		height;
 	int		width;
 
-	game->imgs = malloc(sizeof(t_img) * 8);
+	game->imgs = malloc(sizeof(t_img) * 9);
 	game->imgs[0].img_ptr = mlx_xpm_file_to_image(game->mlx_ptr,
 			"imgs/0.xpm", &width, &height);
 	game->imgs[0].data = (int *)mlx_get_data_addr(game->imgs[0].img_ptr,
@@ -63,9 +63,10 @@ void	ft_upload_img(t_map *game)
 			&game->imgs[3].bpp, &game->imgs[3].size_l, &game->imgs[3].endian);
 	ft_upload_more(game, height, width);
 	ft_upload_enemies(game, height, width);
+	ft_upload_warp(game, height, width);
 }
 
-int	ft_print_map(t_map *game)
+void	ft_print_map(t_map *game)
 {
 	game->y = 0;
 	game->x = 0;
@@ -83,6 +84,8 @@ int	ft_print_map(t_map *game)
 			ft_collect_position(game->y, game->x, game);
 		else if (game->map[game->y][game->x] == 'F')
 			ft_fake_position(game->y, game->x, game);
+		else if (game->map[game->y][game->x] == 'T')
+			ft_warp_position(game->y, game->x, game);
 		game->y++;
 		if (game->y == game->height)
 		{
@@ -90,7 +93,6 @@ int	ft_print_map(t_map *game)
 			game->y = 0;
 		}
 	}
-	return (0);
 }
 
 int	ft_cant(char c)

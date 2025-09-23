@@ -23,7 +23,11 @@ static int	ft_move_w(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x - 1][game->player.y] == 'T')
-		ft_teletransport(game);
+	{
+		game->map[game->player.x][game->player.y] = '0';
+		game->player.x = game->player.x - 1;
+		warp_helper(game);
+	}
 	if ((game->map[game->player.x - 1][game->player.y] != '1')
 		&& game->map[game->player.x - 1][game->player.y] != 'E')
 	{
@@ -31,12 +35,7 @@ static int	ft_move_w(t_map *game)
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.x = game->player.x - 1;
-		game->map[game->player.x][game->player.y] = 'P';
-		game->count++;
-		ft_print_map(game);
-		put_movements(game);
-		ft_printf("Movements: %d\n", game->count);
-		ft_enemy_touched(game);
+		move_util(game);
 	}
 	return (0);
 }
@@ -52,7 +51,11 @@ static int	ft_move_s(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x + 1][game->player.y] == 'T')
-		ft_teletransport(game);
+	{
+		game->map[game->player.x][game->player.y] = '0';
+		game->player.x = game->player.x + 1;
+		warp_helper(game);
+	}
 	if ((game->map[game->player.x + 1][game->player.y] != '1')
 		&& game->map[game->player.x + 1][game->player.y] != 'E')
 	{
@@ -60,12 +63,7 @@ static int	ft_move_s(t_map *game)
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.x = game->player.x + 1;
-		game->map[game->player.x][game->player.y] = 'P';
-		game->count++;
-		ft_print_map(game);
-		put_movements(game);
-		ft_printf("Movements: %d\n", game->count);
-		ft_enemy_touched(game);
+		move_util(game);
 	}
 	return (0);
 }
@@ -81,7 +79,11 @@ static int	ft_move_a(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x][game->player.y - 1] == 'T')
-		ft_teletransport(game);
+	{
+		game->map[game->player.x][game->player.y] = '0';
+		game->player.y = game->player.y - 1;
+		warp_helper(game);
+	}
 	if ((game->map[game->player.x][game->player.y - 1] != '1')
 		&& game->map[game->player.x][game->player.y - 1] != 'E')
 	{
@@ -89,12 +91,7 @@ static int	ft_move_a(t_map *game)
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.y = game->player.y - 1;
-		game->map[game->player.x][game->player.y] = 'P';
-		game->count++;
-		ft_print_map(game);
-		put_movements(game);
-		ft_printf("Movements: %d\n", game->count);
-		ft_enemy_touched(game);
+		move_util(game);
 	}
 	return (0);
 }
@@ -110,7 +107,11 @@ static int	ft_move_d(t_map *game)
 		ft_win(game);
 	}
 	if (game->map[game->player.x][game->player.y + 1] == 'T')
-		ft_teletransport(game);
+	{
+		game->map[game->player.x][game->player.y] = '0';
+		game->player.y = game->player.y + 1;
+		warp_helper(game);
+	}
 	if ((game->map[game->player.x][game->player.y + 1] != '1')
 		&& game->map[game->player.x][game->player.y + 1] != 'E')
 	{
@@ -118,12 +119,7 @@ static int	ft_move_d(t_map *game)
 			game->coins--;
 		game->map[game->player.x][game->player.y] = '0';
 		game->player.y = game->player.y + 1;
-		game->map[game->player.x][game->player.y] = 'P';
-		game->count++;
-		ft_print_map(game);
-		put_movements(game);
-		ft_printf("Movements: %d\n", game->count);
-		ft_enemy_touched(game);
+		move_util(game);
 	}
 	return (0);
 }

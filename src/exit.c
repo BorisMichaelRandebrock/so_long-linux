@@ -12,7 +12,17 @@
 
 #include "so_long.h"
 
-//@@@ Tobe continued
+void	exit_error(t_map *game, char *str, int mod)
+{
+	size_t	size;
+
+	size = ft_strlen(str);
+	if (!mod)
+		ft_free_map(game);
+	write(2, str, size);
+	exit(1);
+}
+
 static void	fill_rect_helper(int *data, t_rect *rect, int color,
 		void *mlx_ptr_unused)
 {

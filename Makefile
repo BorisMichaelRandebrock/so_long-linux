@@ -17,7 +17,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 SRC = main.c parse_it.c ft_read_map.c flood_map.c movements.c\
-	  upload_img.c exit.c position.c bonus.c bonus_bis.c enemies_parse.c\
+	  upload_img.c exit.c position.c bonus.c bonus_bis.c enemies_parse.c warp.c\
 
 LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -lm -lX11 -lXext -lbsd
 
@@ -48,7 +48,7 @@ $(NAME): $(LIBFT) $(FT_PRINTF) $(MLX) $(OBJ)
 bonus: fclean
 	@echo "Compiling bonus version..."
 	@make all
-	@echo "Bonus version compiled!"
+	@echo "\e[32mBonus version compiled!\e[0m"
 
 valgrind:
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/some.ber
