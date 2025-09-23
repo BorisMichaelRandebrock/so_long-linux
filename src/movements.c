@@ -12,23 +12,6 @@
 
 #include "so_long.h"
 
-/* void	move_util(t_map *game)
-{
-	game->map[game->player.x][game->player.y] = 'P';
-	game->count++;
-	ft_print_map(game);
-	put_movements(game);
-	ft_printf("Movements: %d\n", game->count);
-	ft_enemy_touched(game);
-}
-
-void	warp_helper(t_map *game)
-{
-	ft_teletransport(game);
-	ft_print_map(game);
-	ft_enemy_touched(game);
-} */
-
 static int	ft_move_w(t_map *game)
 {
 	game->direction = 'W';

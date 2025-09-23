@@ -48,7 +48,7 @@ $(NAME): $(LIBFT) $(FT_PRINTF) $(MLX) $(OBJ)
 bonus: fclean
 	@echo "Compiling bonus version..."
 	@make all
-	@echo "Bonus version compiled!"
+	@echo "\e[32mBonus version compiled!\e[0m"
 
 valgrind:
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/some.ber
