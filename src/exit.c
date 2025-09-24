@@ -92,6 +92,41 @@ void	ft_enemy_touched(t_map *game)
 
 int	ft_close(t_map *game)
 {
+	int i;
+
+	cleanup_images(game);
+
+	if (game->win_ptr)
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+
+	if (game->map)
+		ft_free_map(game);
+
+	// Free level files
+	if (game->level_files)
+	{
+		i = 0;
+		while (i < game->total_levels)
+		{
+			if (game->level_files[i])
+				free(game->level_files[i]);
+			i++;
+		}
+		free(game->level_files);
+	}
+
+	if (game->mlx_ptr)
+	{
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+	}
+
+	exit(0);
+	return (0);
+}
+
+/* int	ft_close(t_map *game)
+{
 	if (game->enemies)
 	{
 		free(game->enemies);
@@ -101,4 +136,4 @@ int	ft_close(t_map *game)
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	exit(0);
 	return (0);
-}
+} */

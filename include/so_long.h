@@ -140,4 +140,8 @@ int	ft_warp_position(int count1, int count2, t_map *game); //warp.c
 void	exit_error(t_map *game, char *str, int mod);          // exit.c
 void	ft_enemy_touched(t_map *game);                       // exit.c
 int		ft_close(t_map *game);                              // exit.c
+void	cleanup_images(t_map *game);
+void	register_hooks(t_map *game);
+void	load_level(t_map *game, char *level_file);
+void	load_level_without_clear(t_map *game, char *level_file);
 #endif

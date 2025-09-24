@@ -45,56 +45,95 @@ void	player_position(t_map *game)
 	}
 }
 
-static void	load_level(t_map *game, char *level_file)
+void	load_level(t_map *game, char *level_file)
 {
 	if (game->map)
+	{
+		cleanup_images(game);
 		ft_free_map(game);
-
-	// Reset game state for new level
+	}
+	if (game->win_ptr)
+	{
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+		game->win_ptr = NULL;
+	}
 	game->count = 0;
 	game->coins = 0;
 	game->coins_cpy = 0;
-
-	// Create argv array for ft_read_map
 	char *argv[3];
 	argv[0] = "./so_long";
 	argv[1] = level_file;
 	argv[2] = NULL;
-
-	// Read and parse new level
 	ft_read_map(argv, game);
 	ft_measures(game);
 	map_check(game);
 	player_position(game);
-
-	// Upload images for new level
 	ft_upload_img(game);
+	game->win_ptr = mlx_new_window(game->mlx_ptr, game->width * SIZE,
+		game->height * SIZE, "a link to the past..");
+	if (game->win_ptr == NULL)
+		exit_error(game, "ERROR\nUnable to create window for new level\n", 0);
+	register_hooks(game);
 }
 
-static void	load_level_without_clear(t_map *game, char *level_file)
+
+void	cleanup_images(t_map *game)
 {
-	// Free previous level data if exists
+	int i, j;
+
+	i = 0;
+	while (i < 9)
+	{
+		if (game->imgs[i].img_ptr)
+		{
+			mlx_destroy_image(game->mlx_ptr, game->imgs[i].img_ptr);
+			game->imgs[i].img_ptr = NULL;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < 1)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			if (game->enemy_img[i][j])
+			{
+				mlx_destroy_image(game->mlx_ptr, game->enemy_img[i][j]);
+				game->enemy_img[i][j] = NULL;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	register_hooks(t_map *game)
+{
+	mlx_loop_hook(game->mlx_ptr, enemy_update, game);
+	mlx_hook(game->win_ptr, 2, 1L << 0, ft_move, game);
+	mlx_hook(game->win_ptr, 17, 1L << 17, ft_close, game);
+}
+
+void	load_level_without_clear(t_map *game, char *level_file)
+{
 	if (game->map)
 		ft_free_map(game);
 
-	// Reset game state for new level
 	game->count = 0;
 	game->coins = 0;
 	game->coins_cpy = 0;
 
-	// Create argv array for ft_read_map
 	char *argv[3];
 	argv[0] = "./so_long";
 	argv[1] = level_file;
 	argv[2] = NULL;
 
-	// Read and parse new level
 	ft_read_map(argv, game);
 	ft_measures(game);
 	map_check(game);
 	player_position(game);
 
-	// Upload images for new level
 	ft_upload_img(game);
 }
 
@@ -103,18 +142,15 @@ void	ft_win(t_map *game)
 	game->count++;
 	ft_printf("Level %d completed! Total movements: %d\n", game->current_level + 1, game->count);
 
-	// Check if there's a next level
 	if (game->current_level + 1 < game->total_levels)
 	{
 		game->current_level++;
 		ft_printf("Loading Level %d...\n", game->current_level + 1);
 		load_level(game, game->level_files[game->current_level]);
-		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		ft_print_map(game);
 	}
 	else
 	{
-		// Game completed - show final message
 		int	window_w = game->width * SIZE;
 		int	window_h = game->height * SIZE;
 		mlx_string_put(game->mlx_ptr, game->win_ptr,
@@ -146,7 +182,6 @@ int	main(int argc, char **argv)
 	t_map	game;
 	int		fd;
 
-	// Initialize game structure
 	rand();
 	game.count = 0;
 	game.enemy_frame = 0;
@@ -155,8 +190,6 @@ int	main(int argc, char **argv)
 	game.map = NULL;
 	game.map_cpy = NULL;
 	game.mlx_ptr = NULL;
-
-	// Only parse arguments if provided (for single file mode)
 	if (argc == 2)
 		parse_it(argc, argv);
 	else if (argc != 1)
@@ -210,21 +243,18 @@ int	main(int argc, char **argv)
 	fd = open(game.level_files[game.current_level], O_RDONLY);
 	if (fd == -1)
 		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
-	close(fd);  // Don't forget to close the file descriptor
+	close(fd);
 
-	// Create window AFTER loading the level (so we know width/height)
 	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE,
 		game.height * SIZE, "a link to the past..");
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
 
-	// Now we can safely print the map
 	ft_print_map(&game);
 
-	// Set up hooks and start game loop
-	mlx_loop_hook(game.mlx_ptr, enemy_update, &game);
-	mlx_hook(game.win_ptr, 2, 1L << 0, ft_move, &game);
-	mlx_hook(game.win_ptr, 17, 1L << 17, ft_close, &game);
+	// Register hooks for initial window
+	register_hooks(&game);
+
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }
