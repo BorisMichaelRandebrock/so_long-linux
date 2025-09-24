@@ -18,10 +18,8 @@
 #include <time.h>
 #include <unistd.h>
 
-void	load_level(t_map *game, char *level_file)
+static void	reset_game_state(t_map *game)
 {
-	char	*argv[3];
-
 	if (game->map)
 	{
 		cleanup_images(game);
@@ -35,6 +33,13 @@ void	load_level(t_map *game, char *level_file)
 	game->count = 0;
 	game->coins = 0;
 	game->coins_cpy = 0;
+}
+
+void	load_level(t_map *game, char *level_file)
+{
+	char	*argv[3];
+
+	reset_game_state(game);
 	argv[0] = "./so_long";
 	argv[1] = level_file;
 	argv[2] = NULL;
@@ -43,9 +48,9 @@ void	load_level(t_map *game, char *level_file)
 	map_check(game);
 	player_position(game);
 	ft_upload_img(game);
-	game->win_ptr = mlx_new_window(game->mlx_ptr, game->width * SIZE,
-			game->height * SIZE, "a link to the past..");
-	if (game->win_ptr == NULL)
+	game->win_ptr = mlx_new_window(game->mlx_ptr,
+			game->width * SIZE, game->height * SIZE, "a link to the past..");
+	if (!game->win_ptr)
 		exit_error(game, "ERROR\nUnable to create window for new level\n", 0);
 	register_hooks(game);
 }
@@ -90,29 +95,26 @@ void	cleanup_images(t_map *game)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < 9)
+	i = -1;
+	while (++i < 9)
 	{
 		if (game->imgs[i].img_ptr)
 		{
 			mlx_destroy_image(game->mlx_ptr, game->imgs[i].img_ptr);
 			game->imgs[i].img_ptr = NULL;
 		}
-		i++;
 	}
-	i = 0;
-	while (i < 1)
+	i = -1;
+	while (++i < 1)
 	{
-		j = 0;
-		while (j < 5)
+		j = -1;
+		while (++j < 5)
 		{
 			if (game->enemy_img[i][j])
 			{
 				mlx_destroy_image(game->mlx_ptr, game->enemy_img[i][j]);
 				game->enemy_img[i][j] = NULL;
 			}
-			j++;
 		}
-		i++;
 	}
 }
