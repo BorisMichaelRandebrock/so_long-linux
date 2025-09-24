@@ -87,7 +87,6 @@ typedef struct s_map
 
 void	player_position(t_map *game);                         // main.c
 void	ft_win(t_map *game);                                  // main
-void	tokemo(char **arr, int line);                         // main
 void	ft_upload_warp(t_map *game, int height, int width);
 
 int		file_name(char *fn);                                   // parse_it.c
@@ -140,8 +139,9 @@ int	ft_warp_position(int count1, int count2, t_map *game); //warp.c
 void	exit_error(t_map *game, char *str, int mod);          // exit.c
 void	ft_enemy_touched(t_map *game);                       // exit.c
 int		ft_close(t_map *game);                              // exit.c
-void	cleanup_images(t_map *game);
+void	cleanup_images(t_map *game);//utils.c
 void	register_hooks(t_map *game);
-void	load_level(t_map *game, char *level_file);
+void	load_level(t_map *game, char *level_file); //utils.c
 void	load_level_without_clear(t_map *game, char *level_file);
+void	tokemo(char **arr, int line);                         // utils.c
 #endif

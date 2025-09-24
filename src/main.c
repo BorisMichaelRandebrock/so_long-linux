@@ -45,7 +45,7 @@ void	player_position(t_map *game)
 	}
 }
 
-void	load_level(t_map *game, char *level_file)
+/* void	load_level(t_map *game, char *level_file)
 {
 	if (game->map)
 	{
@@ -74,9 +74,9 @@ void	load_level(t_map *game, char *level_file)
 	if (game->win_ptr == NULL)
 		exit_error(game, "ERROR\nUnable to create window for new level\n", 0);
 	register_hooks(game);
-}
+} */
 
-void	cleanup_images(t_map *game)
+/* void	cleanup_images(t_map *game)
 {
 	int i, j;
 
@@ -105,7 +105,7 @@ void	cleanup_images(t_map *game)
 		}
 		i++;
 	}
-}
+} */
 
 void	register_hooks(t_map *game)
 {
@@ -114,7 +114,7 @@ void	register_hooks(t_map *game)
 	mlx_hook(game->win_ptr, 17, 1L << 17, ft_close, game);
 }
 
-void	load_level_without_clear(t_map *game, char *level_file)
+/* void	load_level_without_clear(t_map *game, char *level_file)
 {
 	if (game->map)
 		ft_free_map(game);
@@ -134,13 +134,16 @@ void	load_level_without_clear(t_map *game, char *level_file)
 	player_position(game);
 
 	ft_upload_img(game);
-}
+} */
 
 void	ft_win(t_map *game)
 {
-	game->count++;
-	ft_printf("Level %d completed! Total movements: %d\n", game->current_level + 1, game->count);
+	int	wd_w;
+	int	wd_h;
 
+	game->count++;
+	ft_printf("Level %d completed! Total movements: %d\n", game->current_level
+		+ 1, game->count);
 	if (game->current_level + 1 < game->total_levels)
 	{
 		game->current_level++;
@@ -150,17 +153,17 @@ void	ft_win(t_map *game)
 	}
 	else
 	{
-		int	window_w = game->width * SIZE;
-		int	window_h = game->height * SIZE;
+		wd_w = game->width * SIZE;
+		wd_h = game->height * SIZE;
 		mlx_string_put(game->mlx_ptr, game->win_ptr,
-			(window_w / 2) - 100, window_h / 2, 0x00FF00, "CONGRATULATIONS! GAME COMPLETED!");
+			(wd_w / 2) - 100, wd_h / 2, 0x00FF00, "CONGRATS! GAME COMPLETED!");
 		mlx_do_sync(game->mlx_ptr);
 		sleep(3);
 		ft_close(game);
 	}
 }
 
-void	tokemo(char **arr, int line)
+/* void	tokemo(char **arr, int line)
 {
 	int	i;
 
@@ -175,7 +178,7 @@ void	tokemo(char **arr, int line)
 		i++;
 	}
 }
-
+ */
 int	main(int argc, char **argv)
 {
 	t_map	game;
@@ -198,7 +201,7 @@ int	main(int argc, char **argv)
 		exit_error(NULL, "ERROR\nFailed to initialize MLX\n", 1);
 	game.level_files = malloc(sizeof(char *) * 10);
 	if (!game.level_files)
-		exit_error(NULL, "ERROR\nFailed to allocate memory for level files\n", 1);
+		exit_error(NULL, "ERROR\nFailed to allocate memory 4 level files\n", 1);
 	game.total_levels = 0;
 	game.level_files[game.total_levels++] = ft_strdup("maps/new.ber");
 	if (!game.level_files[game.total_levels - 1])
@@ -218,23 +221,23 @@ int	main(int argc, char **argv)
 	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/warp.ber");
 	if (!game.level_files[game.total_levels - 1])
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
-	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/warp_maze.ber");
+	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/maze.ber");
 	if (!game.level_files[game.total_levels - 1])
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
-	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/spiralling.ber");
+	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/spirall.ber");
 	if (!game.level_files[game.total_levels - 1])
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
-	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/bat_cave.ber");
+	game.level_files[game.total_levels++] = ft_strdup("bonus_maps/batcave.ber");
 	if (!game.level_files[game.total_levels - 1])
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
-	game.level_files[game.total_levels] = NULL;  // Null-terminate array
+	game.level_files[game.total_levels] = NULL;
 	load_level_without_clear(&game, game.level_files[game.current_level]);
 	fd = open(game.level_files[game.current_level], O_RDONLY);
 	if (fd == -1)
 		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
 	close(fd);
 	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE,
-		game.height * SIZE, "a link to the past..");
+			game.height * SIZE, "a link to the past..");
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
 	ft_print_map(&game);

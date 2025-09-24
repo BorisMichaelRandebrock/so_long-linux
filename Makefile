@@ -16,7 +16,7 @@ INC_DIR	= include/
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC = main.c parse_it.c ft_read_map.c flood_map.c movements.c\
+SRC = main.c parse_it.c ft_read_map.c flood_map.c movements.c utils.c\
 	  upload_img.c exit.c position.c bonus.c bonus_bis.c enemies_parse.c warp.c\
 
 LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -lm -lX11 -lXext -lbsd
