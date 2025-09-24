@@ -89,10 +89,6 @@ Contributions are welcome! If you would like to contribute to this project, plea
 <img width="1345" alt="Captura de pantalla 2024-06-14 a las 22 45 23" src="https://github.com/BorisMichaelRandebrock/so_long_bonus/assets/98555508/96e3b835-0b1e-4511-8ebe-a78016c3d746">
  -->
 
- ✅ **Here’s an updated `README.md` that reflects all your new features:**
-
----
-
 # 🐬 so_long — A 2D Adventure with Bats, Teleporters & Multi-Level Progression
 
 > *"And thanks for all the fish!"*
