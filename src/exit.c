@@ -92,7 +92,7 @@ void	ft_enemy_touched(t_map *game)
 
 int	ft_close(t_map *game)
 {
-	int i;
+	int	i;
 
 	cleanup_images(game);
 	if (game->win_ptr)

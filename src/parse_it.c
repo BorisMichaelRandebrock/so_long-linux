@@ -46,10 +46,7 @@ int	parse_it(int argc, char **argv)
 		exit_error(NULL, "ERROR\nIncorrect number of arguments\n", 1);
 	if (argc == 2)
 	{
-		int fd = open(argv[1], O_RDONLY);
-		char buffer;
-		ssize_t bytes_read;
-
+		fd = open(argv[1], O_RDONLY);
 		bytes_read = read(fd, &buffer, 1);
 		if (fd == -1)
 			exit_error(NULL, "ERROR\nWrong file reading\n", 1);
