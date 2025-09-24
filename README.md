@@ -125,7 +125,7 @@ A top-down 2D puzzle game built with **MiniLibX** as part of the 42 School curri
 - Final victory screen after completing all levels (I could not manage to see that one.. )   
    
 
-this branch is presently having leaks and is not compliant to norminette - but it is fun to try...
+this branch is presently having leaks - but it is fun to try...
 
 
 ---
