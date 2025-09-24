@@ -76,7 +76,6 @@ void	load_level(t_map *game, char *level_file)
 	register_hooks(game);
 }
 
-
 void	cleanup_images(t_map *game)
 {
 	int i, j;
@@ -194,19 +193,13 @@ int	main(int argc, char **argv)
 		parse_it(argc, argv);
 	else if (argc != 1)
 		exit_error(NULL, "ERROR\nIncorrect number of arguments\n", 1);
-
 	game.mlx_ptr = mlx_init();
 	if (!game.mlx_ptr)
 		exit_error(NULL, "ERROR\nFailed to initialize MLX\n", 1);
-
-	// Allocate memory for level files (9 levels + NULL terminator)
 	game.level_files = malloc(sizeof(char *) * 10);
 	if (!game.level_files)
 		exit_error(NULL, "ERROR\nFailed to allocate memory for level files\n", 1);
-
 	game.total_levels = 0;
-
-	// Add level files
 	game.level_files[game.total_levels++] = ft_strdup("maps/new.ber");
 	if (!game.level_files[game.total_levels - 1])
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
@@ -235,26 +228,17 @@ int	main(int argc, char **argv)
 	if (!game.level_files[game.total_levels - 1])
 		exit_error(NULL, "ERROR\nFailed to duplicate level filename\n", 1);
 	game.level_files[game.total_levels] = NULL;  // Null-terminate array
-
-	// Load first level (without clearing window that doesn't exist yet)
 	load_level_without_clear(&game, game.level_files[game.current_level]);
-
-	// Check if level file exists
 	fd = open(game.level_files[game.current_level], O_RDONLY);
 	if (fd == -1)
 		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
 	close(fd);
-
 	game.win_ptr = mlx_new_window(game.mlx_ptr, game.width * SIZE,
 		game.height * SIZE, "a link to the past..");
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
-
 	ft_print_map(&game);
-
-	// Register hooks for initial window
 	register_hooks(&game);
-
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }

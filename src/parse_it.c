@@ -59,13 +59,6 @@ int	parse_it(int argc, char **argv)
 			exit_error(NULL, "ERROR\nEmpty file\n", 1);
 		close(fd);
 	}
-	/* if (fd == -1)
-		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
-	else if (file_name(argv[1]) == -1)
-		exit_error(NULL, "ERROR\nWrong file type\n", 1);
-	else if (fd > 0 && bytes_read == 0)
-		exit_error(NULL, "ERROR\nEmpty file\n", 1);
-	close(fd); */
 	return (0);
 }
 
