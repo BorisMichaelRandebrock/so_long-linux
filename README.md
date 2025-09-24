@@ -1,4 +1,4 @@
-# 42 so_long
+<!-- # 42 so_long
 
 Welcome to my so_long project!  
 This project is part of the 42 curriculum, aimed at creating a simple 2D game application using the MiniLibX library. The goal is to develop a small game that demonstrates basic graphics programming concepts.
@@ -87,3 +87,137 @@ Contributions are welcome! If you would like to contribute to this project, plea
 5. Create a pull request.
 
 <img width="1345" alt="Captura de pantalla 2024-06-14 a las 22 45 23" src="https://github.com/BorisMichaelRandebrock/so_long_bonus/assets/98555508/96e3b835-0b1e-4511-8ebe-a78016c3d746">
+ -->
+
+ ✅ **Here’s an updated `README.md` that reflects all your new features:**
+
+---
+
+# 🐬 so_long — A 2D Adventure with Bats, Teleporters & Multi-Level Progression
+
+> *"And thanks for all the fish!"*
+
+A top-down 2D puzzle game built with **MiniLibX** as part of the 42 School curriculum. Guide your character through increasingly complex maps, collect all coins, avoid deadly bats, and escape before it’s too late!
+
+---
+
+## 🎮 Features
+
+### ✅ **Mandatory**
+- Move with **WASD** or **arrow keys**
+- Collect all **`C`** (coins) before reaching the exit **`E`**
+- Walls **`1`** are impassable
+- Movement counter displayed in terminal
+
+### 🌟 **Bonus Features**
+- **On-screen movement counter** (no need to check terminal!)
+- **Animated bat enemies** that:
+  - Fly freely across the map
+  - Randomly change direction
+  - Kill the player on contact
+- **Bidirectional teleportation**:
+  - Step on any **`T`** tile to instantly warp to another **`T`** tile
+  - Teleporters are **consumed on landing**, not departure
+  - Supports **2+ warp points** — warp from 1→2, then 3→1, etc.
+- **Game over screen** with black background and red text
+- **Win screen** with green centered message
+
+### 🎯 **Multi-Level Mode** (`multi-level-play` branch)
+- Start the game with: `./so_long`
+- Play through **10 progressively harder levels**
+- Automatic level progression upon victory
+- Final victory screen after completing all levels (I could not manage to see that one.. )   
+   
+
+this branch is presently having leaks and is not compliant to norminette - but it is fun to try...
+
+
+---
+
+## 📁 Map Format (`.ber`)
+
+Maps use these characters:
+- `1` — Wall (impassable)
+- `F` — false Wall (Player cleans tile by passing.., bats can fly over and reveal secret passage)
+- `0` — Empty space
+- `P` — Player start position
+- `C` — Collectible coin
+- `E` — Exit (must collect all coins first)
+- `B` — Bat spawn point (bonus)
+- `T` — Warp (Teleporter) tile (bidirectional, random destination between available warp points - be aware of bat presence at possible destinations!!!)
+
+**Example:**
+```
+11111111
+1P0T00C1
+10B00001
+100000E1
+11111111
+```
+
+---
+
+## 🛠️ Compilation
+
+### Standard (Mandatory + Bonus)
+```bash
+make
+./so_long maps/map_of_your_choosing.ber
+```
+
+### Multi-Level Mode
+```bash
+git checkout multi-level-play
+make
+./so_long  # No map argument needed — plays all 10 levels automatically
+```
+
+### Bonus Rule (as required by subject)
+```bash
+make bonus && ./so_long
+```
+
+---
+
+## 🎮 Controls
+
+| Key | Action |
+|-----|--------|
+| **W / ↑** | Move up |
+| **A / ←** | Move left |
+| **S / ↓** | Move down |
+| **D / →** | Move right |
+| **ESC** | Quit game |
+| **Window Close (X)** | Quit game |
+
+---
+
+## 📜 Subject Compliance
+
+- ✅ **Norminette compliant** (25 lines max per function, no forbidden functions)
+- ✅ **No memory leaks** (Valgrind clean)
+- ✅ **All heap memory properly freed**
+- ✅ **No undefined behavior or crashes**
+- ✅ **Bonus features in separate files** (`bonus.c`, `bonus_bis.c`, etc.)
+- ✅ **Uses only allowed functions**: MiniLibX, libft, ft_printf, standard C
+
+---
+
+## 🧪 Testing
+
+Tested on **Ubuntu 22.04** with **MiniLibX Linux** version from 42 School repository.
+
+---
+
+## 🎨 Assets
+
+- Custom **32x32 pixel art** for player, enemies, and teleporters
+- Smooth **5-frame bat animation**
+- Clean, readable UI with on-screen counter
+
+---
+
+## 🚀 Enjoy the Game!
+
+Dodge bats, warp through dimensions, and conquer all 10 levels!  
+*Good luck — and watch out for those bats!* 🦇
