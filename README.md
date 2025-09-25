@@ -120,12 +120,9 @@ A top-down 2D puzzle game built with **MiniLibX** as part of the 42 School curri
 
 ### 🎯 **Multi-Level Mode** (`multi-level-play` branch)
 - Start the game with: `./so_long`
-- Play through **10 progressively harder levels**
+- Play through **9 progressively harder levels**
 - Automatic level progression upon victory
 - Final victory screen after completing all levels (I could not manage to see that one.. )   
-   
-
-this branch is presently having leaks - but it is fun to try...
 
 
 ---
@@ -165,7 +162,7 @@ make
 ```bash
 git checkout multi-level-play
 make
-./so_long  # No map argument needed — plays all 10 levels automatically
+./so_long  # No map argument needed — plays all 9 levels automatically
 ```
 
 ### Bonus Rule (as required by subject)
@@ -215,5 +212,5 @@ Tested on **Ubuntu 22.04** with **MiniLibX Linux** version from 42 School reposi
 
 ## 🚀 Enjoy the Game!
 
-Dodge bats, warp through dimensions, and conquer all 10 levels!  
+Dodge bats, warp through dimensions, and conquer all 9 levels!  
 *Good luck — and watch out for those bats!* 🦇
