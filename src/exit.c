@@ -95,18 +95,18 @@ int	ft_close(t_map *game)
 	int	i;
 
 	cleanup_images(game);
+	cleanup_enemies(game);
 	if (game->win_ptr)
 		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	if (game->map)
 		ft_free_map(game);
 	if (game->level_files)
 	{
-		i = 0;
-		while (i < game->total_levels)
+		i = -1;
+		while (++i < game->total_levels)
 		{
 			if (game->level_files[i])
 				free(game->level_files[i]);
-			i++;
 		}
 		free(game->level_files);
 	}

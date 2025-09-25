@@ -37,6 +37,10 @@ void	ft_upload_more(t_map *game, int height, int width)
 			"imgs/player_down.xpm", &width, &height);
 	game->imgs[7].data = (int *)mlx_get_data_addr(game->imgs[7].img_ptr,
 			&game->imgs[7].bpp, &game->imgs[7].size_l, &game->imgs[7].endian);
+	game->imgs[3].img_ptr = mlx_xpm_file_to_image(game->mlx_ptr,
+			"imgs/player.xpm", &width, &height);
+	game->imgs[3].data = (int *)mlx_get_data_addr(game->imgs[3].img_ptr,
+			&game->imgs[3].bpp, &game->imgs[3].size_l, &game->imgs[3].endian);
 }
 
 void	ft_upload_img(t_map *game)
@@ -44,7 +48,14 @@ void	ft_upload_img(t_map *game)
 	int		height;
 	int		width;
 
-	game->imgs = malloc(sizeof(t_img) * 9);
+	game->imgs = NULL;
+	//game->imgs = malloc(sizeof(t_img) * 9);
+	if (!game->imgs)
+    {
+        game->imgs = malloc(sizeof(t_img) * 9); // Your current allocation
+        if (!game->imgs)
+            exit_error(game, "Error\nFailed to allocate image array\n", 0);
+    }
 	game->imgs[0].img_ptr = mlx_xpm_file_to_image(game->mlx_ptr,
 			"imgs/0.xpm", &width, &height);
 	game->imgs[0].data = (int *)mlx_get_data_addr(game->imgs[0].img_ptr,
@@ -57,10 +68,6 @@ void	ft_upload_img(t_map *game)
 			"imgs/exit.xpm", &width, &height);
 	game->imgs[2].data = (int *)mlx_get_data_addr(game->imgs[2].img_ptr,
 			&game->imgs[2].bpp, &game->imgs[2].size_l, &game->imgs[2].endian);
-	game->imgs[3].img_ptr = mlx_xpm_file_to_image(game->mlx_ptr,
-			"imgs/player.xpm", &width, &height);
-	game->imgs[3].data = (int *)mlx_get_data_addr(game->imgs[3].img_ptr,
-			&game->imgs[3].bpp, &game->imgs[3].size_l, &game->imgs[3].endian);
 	ft_upload_more(game, height, width);
 	ft_upload_enemies(game, height, width);
 	ft_upload_warp(game, height, width);
