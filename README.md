@@ -97,7 +97,10 @@ A top-down 2D puzzle game built with **MiniLibX** as part of the 42 School curri
 
 ---
 
+
 ## 🎮 Features
+<img align="right" src="./imgs/so_long.gif"
+     alt="so_long with spiralling.ber"  width="200" height="200">
 
 ### ✅ **Mandatory**
 - Move with **WASD** or **arrow keys**
