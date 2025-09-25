@@ -146,5 +146,6 @@ void	load_level_without_clear(t_map *game, char *level_file);
 void	tokemo(char **arr, int line);                         // utils.c
 void	init_game(t_map *game, int argc, char **argv);
 void	load_levels(t_map *game);
-void cleanup_enemies(t_map *game);
+void 	cleanup_enemies(t_map *game);
+void while_loop(int i, t_map *game);
 #endif

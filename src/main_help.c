@@ -66,3 +66,25 @@ void	load_levels(t_map *game)
 	}
 	game->level_files[i] = NULL;
 }
+
+void	cleanup_enemies(t_map *game)
+{
+	if (game->enemies)
+	{
+		free(game->enemies);
+		game->enemies = NULL;
+	}
+	game->enemy_count = 0;
+}
+
+void	while_loop(int i, t_map *game)
+{
+	while (++i < 9)
+	{
+		if (game->imgs[i].img_ptr)
+		{
+			mlx_destroy_image(game->mlx_ptr, game->imgs[i].img_ptr);
+			game->imgs[i].img_ptr = NULL;
+		}
+	}
+}

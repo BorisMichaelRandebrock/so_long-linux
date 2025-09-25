@@ -18,16 +18,6 @@
 #include <time.h>
 #include <unistd.h>
 
-void cleanup_enemies(t_map *game)
-{
-	if (game->enemies)
-	{
-		free(game->enemies);
-		game->enemies = NULL;
-	}
-	game->enemy_count = 0;
-}
-
 static void	reset_game_state(t_map *game)
 {
 	if (game->map)
@@ -107,16 +97,9 @@ void	cleanup_images(t_map *game)
 	int	j;
 
 	if (!game->imgs)
-        return;
+		return ;
 	i = -1;
-	while (++i < 9)
-	{
-		if (game->imgs[i].img_ptr)
-		{
-			mlx_destroy_image(game->mlx_ptr, game->imgs[i].img_ptr);
-			game->imgs[i].img_ptr = NULL;
-		}
-	}
+	while_loop(i, game);
 	i = -1;
 	while (++i < 1)
 	{
@@ -131,5 +114,5 @@ void	cleanup_images(t_map *game)
 		}
 	}
 	free(game->imgs);
-    game->imgs = NULL;
+	game->imgs = NULL;
 }

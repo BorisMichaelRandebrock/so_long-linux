@@ -49,13 +49,12 @@ void	ft_upload_img(t_map *game)
 	int		width;
 
 	game->imgs = NULL;
-	//game->imgs = malloc(sizeof(t_img) * 9);
 	if (!game->imgs)
-    {
-        game->imgs = malloc(sizeof(t_img) * 9); // Your current allocation
-        if (!game->imgs)
-            exit_error(game, "Error\nFailed to allocate image array\n", 0);
-    }
+	{
+		game->imgs = malloc(sizeof(t_img) * 9);
+		if (!game->imgs)
+			exit_error(game, "Error\nFailed to allocate image array\n", 0);
+	}
 	game->imgs[0].img_ptr = mlx_xpm_file_to_image(game->mlx_ptr,
 			"imgs/0.xpm", &width, &height);
 	game->imgs[0].data = (int *)mlx_get_data_addr(game->imgs[0].img_ptr,
