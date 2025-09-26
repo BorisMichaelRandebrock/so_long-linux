@@ -29,7 +29,7 @@ void	init_game(t_map *game, int argc, char **argv)
 	game->map_cpy = NULL;
 	game->mlx_ptr = NULL;
 	if (argc == 2)
-		parse_it(argc, argv);
+		parse_it(argc, argv, 9);
 	else if (argc != 1)
 		exit_error(NULL, "ERROR\nIncorrect number of arguments\n", 1);
 	game->mlx_ptr = mlx_init();

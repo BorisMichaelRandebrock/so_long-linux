@@ -83,10 +83,18 @@ int	main(int argc, char **argv)
 {
 	t_map	game;
 	int		fd;
+	int		start_level;
 
 	init_game(&game, argc, argv);
 	load_levels(&game);
-	load_level_without_clear(&game, game.level_files[game.current_level]);
+	start_level = parse_it(argc, argv, game.total_levels);
+	if (start_level == -1)
+		load_level_without_clear(&game, argv[1]);
+	else
+	{
+		game.current_level = start_level;
+		load_level_without_clear(&game, game.level_files[game.current_level]);
+	}
 	fd = open(game.level_files[game.current_level], O_RDONLY);
 	if (fd == -1)
 		exit_error(NULL, "ERROR\nWrong file reading\n", 1);

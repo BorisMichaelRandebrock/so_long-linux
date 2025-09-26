@@ -90,7 +90,7 @@ void	ft_win(t_map *game);                                  // main
 void	ft_upload_warp(t_map *game, int height, int width);
 
 int		file_name(char *fn);                                   // parse_it.c
-int		parse_it(int argc, char **argv);                       // parse_it.c
+int		parse_it(int argc, char **argv, int total_levels);                       // parse_it.c
 int		exit_player_check(t_map *game);                        // parse_it.c
 int		ft_collectibles(t_map *game);                          // parse_it.c
 void	ft_rectangle_check(t_map *game);                      // parse_it.c
@@ -128,7 +128,7 @@ void	draw_enemies(t_map *game);                           // bonus.c
 void	put_movements(t_map *game);                          // bonus_bis.c
 void	ft_upload_enemies(t_map *game, int height, int width);// bonus_bis.c
 void	set_random_direction(t_enemy *enemy);               // bonus_bis.c
-void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y); 
+void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y);
 // bonus_bis.c
 int	ft_warp_position(int count1, int count2, t_map *game);
 void	ft_teletransport(t_map *game);	//warp.c
@@ -146,6 +146,7 @@ void	load_level_without_clear(t_map *game, char *level_file);
 void	tokemo(char **arr, int line);                         // utils.c
 void	init_game(t_map *game, int argc, char **argv);
 void	load_levels(t_map *game);
-void 	cleanup_enemies(t_map *game);
-void while_loop(int i, t_map *game);
+void	cleanup_enemies(t_map *game);
+void	while_loop(int i, t_map *game);
+int		get_level_index(int argc, char **argv, int total_levels);
 #endif

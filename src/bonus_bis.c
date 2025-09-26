@@ -70,3 +70,30 @@ void	calculate_next_position(t_enemy *enemy, int *next_x, int *next_y)
 	else if (enemy->direction == 'U')
 		(*next_x)--;
 }
+
+int	get_level_index(int argc, char **argv, int total_levels)
+{
+	int	i;
+	int	level;
+
+	if (argc == 1)
+		return (0);
+	if (argc == 2)
+	{
+		i = -1;
+		while (argv[1][++i])
+			if (argv[1][i] < '0' || argv[1][i] > '9')
+				return (-1);
+		if (i == 0)
+			return (-1);
+		level = 0;
+		i = -1;
+		while (argv[1][++i])
+			level = level * 10 + (argv[1][i] - '0');
+		if (level >= 0 && level < total_levels)
+			return (level);
+		else
+			exit_error(NULL, "ERROR\nLevel index out of range\n", 1);
+	}
+	return (0);
+}

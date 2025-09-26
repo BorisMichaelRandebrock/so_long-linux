@@ -33,7 +33,7 @@ int	file_name(char *fn)
 	}
 	return (0);
 }
-
+/*
 int	parse_it(int argc, char **argv)
 {
 	int		fd;
@@ -57,6 +57,45 @@ int	parse_it(int argc, char **argv)
 		close(fd);
 	}
 	return (0);
+}
+ */
+
+int	parse_it(int argc, char **argv, int total_levels)
+{
+	int		fd;
+	int		i;
+	int		level;
+	char	buffer;
+	ssize_t	bytes_read;
+
+	if (argc != 1 && argc != 2)
+		exit_error(NULL, "ERROR\nIncorrect number of arguments\n", 1);
+	if (argc == 1)
+		return (0);
+	i = -1;
+	while (argv[1][++i])
+		if (argv[1][i] < '0' || argv[1][i] > '9')
+			break ;
+	if (i > 0 && argv[1][i] == '\0')
+	{
+		i = -1;
+		level = 0;
+		while (argv[1][++i])
+			level = level * 10 + (argv[1][i] - '0');
+		if (level >= 0 && level < total_levels)
+			return (level);
+		exit_error(NULL, "ERROR\nLevel index out of range\n", 1);
+	}
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		exit_error(NULL, "ERROR\nWrong file reading\n", 1);
+	bytes_read = read(fd, &buffer, 1);
+	if (file_name(argv[1]) == -1)
+		exit_error(NULL, "ERROR\nWrong file type\n", 1);
+	if (bytes_read == 0)
+		exit_error(NULL, "ERROR\nEmpty file\n", 1);
+	close(fd);
+	return (-1);
 }
 
 int	exit_player_check(t_map *game)
