@@ -103,8 +103,7 @@ int	main(int argc, char **argv)
 			game.height * SIZE, "a link to the past..");
 	if (game.win_ptr == NULL)
 		exit_error(NULL, "ERROR\nUnable to create a window\n", 1);
-	ft_print_map(&game);
-	register_hooks(&game);
+	print_map_reg_hooks(&game);
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }

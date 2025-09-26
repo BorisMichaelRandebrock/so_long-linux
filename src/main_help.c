@@ -88,3 +88,9 @@ void	while_loop(int i, t_map *game)
 		}
 	}
 }
+
+void	print_map_reg_hooks(t_map	*game)
+{
+	ft_print_map(game);
+	register_hooks(game);
+}
