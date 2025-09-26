@@ -82,3 +82,26 @@ void	parse_enemies(t_map *game)
 		game->enemy_count = 0;
 	}
 }
+
+int	is_valid_number(char *str, int *level)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	if (i == 0)
+		return (0);
+	*level = 0;
+	i = 0;
+	while (str[i])
+	{
+		*level = *level * 10 + (str[i] - '0');
+		i++;
+	}
+	return (1);
+}

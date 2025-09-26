@@ -150,5 +150,6 @@ void	cleanup_enemies(t_map *game);
 void	while_loop(int i, t_map *game);
 int		get_level_index(int argc, char **argv, int total_levels);
 void	print_map_reg_hooks(t_map	*game);
+int		is_valid_number(char *str, int *level);
 
 #endif
