@@ -2,7 +2,7 @@
 static char *playr_down1704892933[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 204 2 ",
-"   c #6EB35E",
+"   c None",
 ".  c #1C1A15",
 "X  c #1A1A19",
 "o  c #171A19",

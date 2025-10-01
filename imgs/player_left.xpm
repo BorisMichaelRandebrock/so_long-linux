@@ -2,7 +2,7 @@
 static char *player_left1704881534[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 219 2 ",
-"   c #6EB35E",
+"   c None",
 ".  c #1E3F0F",
 "X  c #39270A",
 "o  c #2A251D",

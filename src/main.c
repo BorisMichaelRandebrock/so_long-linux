@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brandebr <brandebr@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: boris <boris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:26:44 by brandebr          #+#    #+#             */
-/*   Updated: 2024/01/04 16:46:39 by brandebr         ###   ########.fr       */
+/*   Updated: 2025/10/01 09:22:27 by boris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	player_position(t_map *game)
 void	register_hooks(t_map *game)
 {
 	mlx_loop_hook(game->mlx_ptr, enemy_update, game);
-	mlx_hook(game->win_ptr, 2, 1L << 0, ft_move, game);
-	mlx_hook(game->win_ptr, 17, 1L << 17, ft_close, game);
+	mlx_hook(game.win_ptr, 2, 0, ft_move, &game);
+	mlx_hook(game.win_ptr, 17, 0, ft_close, &game);
+	// mlx_hook(game->win_ptr, 2, 1L << 0, ft_move, game);
+	// mlx_hook(game->win_ptr, 17, 1L << 17, ft_close, game);
 }
 
 void	ft_win(t_map *game)

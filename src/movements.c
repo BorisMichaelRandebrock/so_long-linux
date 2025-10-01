@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brandebr <brandebr@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: boris <boris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:11:19 by brandebr          #+#    #+#             */
-/*   Updated: 2024/01/10 14:25:21 by brandebr         ###   ########.fr       */
+/*   Updated: 2025/10/01 09:18:29 by boris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,21 @@ static int	ft_move_d(t_map *game)
 
 int	ft_move(int keycode, t_map *game)
 {
+	if (keycode == 13 || keycode == 126)
+		ft_move_w(game);
+	if (keycode == 0 || keycode == 123)
+		ft_move_a(game);
+	if (keycode == 1 || keycode == 125)
+		ft_move_s(game);
+	if (keycode == 2 || keycode == 124)
+		ft_move_d(game);
+	if (keycode == 53)
+		exit(1);
+	return (0);
+}
+/* 
+int	ft_move(int keycode, t_map *game)
+{
 	if (keycode == 119 || keycode == 65362)
 		ft_move_w(game);
 	if (keycode == 97 || keycode == 65361)
@@ -138,3 +153,4 @@ int	ft_move(int keycode, t_map *game)
 		exit(1);
 	return (0);
 }
+ */
