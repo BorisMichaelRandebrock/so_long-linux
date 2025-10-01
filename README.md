@@ -123,6 +123,8 @@ A top-down 2D puzzle game built with **MiniLibX** as part of the 42 School curri
 - Play through **9 progressively harder levels**
 - Automatic level progression upon victory
 - Final victory screen after completing all levels (I could not manage to see that one.. )   
+- Replay from any level without passing previous levels, from level 0 -> 8      
+ fe : `./so_long 6` starts at level 7 ending at level 9 (8)   
 
 
 ---
