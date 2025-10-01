@@ -12,8 +12,6 @@
 
 #define _POSIX_C_SOURCE 200809L
 #include "so_long.h"
-#include <X11/X.h>
-#include <X11/keysym.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>

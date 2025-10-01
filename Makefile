@@ -19,7 +19,8 @@ OBJ_DIR = obj/
 SRC = main.c parse_it.c ft_read_map.c flood_map.c movements.c utils.c main_help.c\
 	  upload_img.c exit.c position.c bonus.c bonus_bis.c enemies_parse.c warp.c\
 
-LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -lm -lX11 -lXext -lbsd
+# LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -lm -lX11 -lXext -lbsd
+LIBS = -L./Libft -lft -L./ft_printf -lftprintf -L./mlx -lmlx -framework OpenGL -framework AppKit
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
